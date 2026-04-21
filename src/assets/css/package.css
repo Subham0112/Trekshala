@@ -1,0 +1,117 @@
+/* src/pages/Packages.css */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+.pkg-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+.pkg-body    { font-family: 'Inter', system-ui, sans-serif; }
+
+/* ── Hero text ── */
+.pkg-hero-text {
+  background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Scroll reveal ── */
+.pkg-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.pkg-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Card animations ── */
+.pkg-card-enter {
+  animation: pkgCardIn 0.4s ease forwards;
+}
+@keyframes pkgCardIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Package card hover ── */
+.pkg-trek-card {
+  transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.32s ease, border-color 0.32s ease;
+}
+.pkg-trek-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.11);
+  border-color: #bbf7d0 !important;
+}
+.pkg-img { transition: transform 0.55s ease; }
+.pkg-trek-card:hover .pkg-img { transform: scale(1.05); }
+
+/* ── Filter button ── */
+.pkg-filter {
+  transition: all 0.2s ease;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.pkg-filter:hover:not(.active-filter) {
+  border-color: #15803d !important;
+  color: #15803d !important;
+  background: #f0fdf4 !important;
+}
+
+/* ── Search focus ── */
+.pkg-search:focus {
+  border-color: #15803d !important;
+  box-shadow: 0 0 0 3px rgba(21,128,61,0.12) !important;
+  outline: none;
+}
+
+/* ── Add to cart button ── */
+.pkg-cart-btn {
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.pkg-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(21,128,61,0.32);
+}
+
+/* ── Details link ── */
+.pkg-details-btn {
+  transition: background 0.22s ease, color 0.22s ease;
+}
+.pkg-details-btn:hover {
+  background: #15803d !important;
+  color: white !important;
+}
+
+/* ── Floating cart ── */
+.pkg-fab {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.pkg-fab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 36px rgba(21,128,61,0.55) !important;
+}
+
+/* ── Why card ── */
+.pkg-why-card {
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.pkg-why-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(0,0,0,0.09); }
+.pkg-why-icon {
+  transition: background 0.28s ease, color 0.28s ease;
+}
+.pkg-why-card:hover .pkg-why-icon {
+  background: #15803d !important;
+  color: white !important;
+}
+
+/* ── Modal animation ── */
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+.pkg-modal { animation: modalIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* ── Page button ── */
+.pkg-page-btn {
+  transition: all 0.18s ease;
+}
+.pkg-page-btn:hover:not(.active-page) {
+  background: #f0fdf4 !important;
+  border-color: #15803d !important;
+  color: #15803d !important;
+}

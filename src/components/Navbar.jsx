@@ -157,19 +157,6 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-              <div style={{ position: 'relative' }}>
-                <img
-                  src="/src/assets/img/logo.png"
-                  alt="TrekShala"
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '12px',
-                    objectFit: 'cover',
-                    boxShadow: '0 2px 12px rgba(21,128,61,0.2)',
-                  }}
-                />
-              </div>
               <div>
                 <div style={{
                   fontSize: '22px',
@@ -263,11 +250,7 @@ export default function Navbar() {
           justifyContent: 'space-between',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img
-              src="/src/assets/img/logo.png"
-              alt="TrekShala"
-              style={{ width: '36px', height: '36px', borderRadius: '10px', objectFit: 'cover' }}
-            />
+          
             <div style={{
               fontSize: '18px',
               fontWeight: 800,

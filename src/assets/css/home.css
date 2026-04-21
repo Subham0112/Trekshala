@@ -1,0 +1,120 @@
+/* src/pages/Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Fonts ── */
+.nt-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+.nt-body    { font-family: 'Inter', system-ui, sans-serif; }
+
+/* ── Hero gradient text ── */
+.nt-hero-text {
+  background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 50%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Hero animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.nt-anim-1 { animation: fadeUp 0.7s ease forwards; }
+.nt-anim-2 { animation: fadeUp 0.7s 0.12s ease both; }
+.nt-anim-3 { animation: fadeUp 0.7s 0.24s ease both; }
+.nt-anim-4 { animation: fadeUp 0.7s 0.36s ease both; }
+
+/* ── Stat card shimmer ── */
+.nt-stat-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.nt-stat-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.nt-stat-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.11); }
+.nt-stat-card:hover::before { opacity: 1; }
+
+/* ── Scroll reveal ── */
+.nt-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.nt-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Feature card ── */
+.nt-feat-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.nt-feat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(21,128,61,0.1);
+  border-color: #bbf7d0 !important;
+}
+.nt-feat-icon {
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.nt-feat-card:hover .nt-feat-icon {
+  transform: scale(1.1);
+  background: #15803d !important;
+  color: white !important;
+}
+
+/* ── Trek card ── */
+.nt-trek-card {
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
+}
+.nt-trek-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.13);
+}
+.nt-trek-img { transition: transform 0.6s ease; }
+.nt-trek-card:hover .nt-trek-img { transform: scale(1.06); }
+
+/* ── Testimonial card ── */
+.nt-review-card {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(167,243,208,0.1);
+}
+.nt-review-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(167,243,208,0.25);
+}
+
+/* ── Primary button ── */
+.nt-btn-p {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.nt-btn-p:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(21,128,61,0.38);
+}
+
+/* ── Secondary button ── */
+.nt-btn-s {
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.nt-btn-s:hover {
+  background: rgba(255,255,255,0.1) !important;
+  border-color: rgba(255,255,255,0.55) !important;
+}
+
+/* ── Gold divider line ── */
+.nt-gold-bar::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #d97706, #fbbf24);
+  border-radius: 2px;
+  margin: 0 auto 14px;
+}

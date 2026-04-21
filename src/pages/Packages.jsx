@@ -1,217 +1,61 @@
 // src/pages/Packages.jsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { treks } from '../data/treks';
 import React from 'react';
 import {
   FaMapMarkerAlt, FaCartPlus, FaInfoCircle,
   FaChevronLeft, FaChevronRight, FaShieldAlt, FaAward, FaHeart, FaCheck,
+  FaClock, FaMountain,
 } from 'react-icons/fa';
 import { GiHiking, GiMountainRoad } from 'react-icons/gi';
-import { BsCart, BsCartCheck, BsSearch } from 'react-icons/bs';
+import { BsCart, BsCartCheck, BsSearch, BsXCircle } from 'react-icons/bs';
 import { BsArrowRight } from 'react-icons/bs';
-import { FaMountain } from 'react-icons/fa';
-
-const FONTS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
-`;
-
-const STYLES = `
-  * { box-sizing: border-box; }
-  .nt-font-display { font-family: 'Playfair Display', Georgia, serif; }
-  .nt-font-body { font-family: 'DM Sans', system-ui, sans-serif; }
-
-  .nt-hero-text {
-    background: linear-gradient(135deg, #bbf7d0 0%, #86efac 40%, #4ade80 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .nt-pkg-card {
-    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.35s ease;
-    border: 1px solid #f1f5f9;
-  }
-  .nt-pkg-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 24px 48px rgba(0,0,0,0.12);
-    border-color: #bbf7d0;
-  }
-  .nt-pkg-card:hover .nt-pkg-img { transform: scale(1.06); }
-  .nt-pkg-img { transition: transform 0.6s ease; }
-
-  .nt-filter-btn {
-    transition: all 0.22s ease;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    cursor: pointer;
-    border: 2px solid #e2e8f0;
-    background: white;
-    color: #475569;
-    padding: 9px 20px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .nt-filter-btn.active {
-    background: linear-gradient(135deg, #15803d, #166534);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 4px 16px rgba(21,128,61,0.35);
-  }
-  .nt-filter-btn:not(.active):hover {
-    border-color: #15803d;
-    color: #15803d;
-    background: #f0fdf4;
-  }
-
-  .nt-scroll-reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .nt-scroll-reveal.visible { opacity: 1; transform: translateY(0); }
-
-  .nt-add-btn {
-    background: linear-gradient(135deg, #15803d, #166534);
-    transition: all 0.25s ease;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-  }
-  .nt-add-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(21,128,61,0.35); }
-  .nt-add-btn.in-cart { background: linear-gradient(135deg, #166534, #052e16); }
-
-  .nt-details-btn {
-    transition: all 0.25s ease;
-    border: 1.5px solid #15803d;
-    color: #15803d;
-    background: transparent;
-    cursor: pointer;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    text-decoration: none;
-  }
-  .nt-details-btn:hover { background: #15803d; color: white; }
-
-  .nt-page-btn {
-    transition: all 0.2s ease;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
-    background: white;
-    color: #475569;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 14px;
-  }
-  .nt-page-btn.active {
-    background: linear-gradient(135deg, #15803d, #166534);
-    color: white;
-    border-color: transparent;
-    box-shadow: 0 4px 12px rgba(21,128,61,0.3);
-  }
-  .nt-page-btn:not(.active):hover { background: #f0fdf4; border-color: #15803d; color: #15803d; }
-
-  .nt-cart-fab {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #15803d, #166534);
-    color: white;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 28px rgba(21,128,61,0.45);
-    transition: all 0.3s ease;
-    z-index: 40;
-  }
-  .nt-cart-fab:hover { transform: scale(1.1); box-shadow: 0 12px 36px rgba(21,128,61,0.55); }
-
-  .nt-search-input {
-    width: 100%;
-    padding: 12px 16px 12px 44px;
-    border-radius: 12px;
-    border: 1.5px solid #e2e8f0;
-    font-size: 14px;
-    color: #374151;
-    background: #f8fafc;
-    transition: all 0.2s ease;
-    font-family: 'DM Sans', system-ui, sans-serif;
-    outline: none;
-  }
-  .nt-search-input:focus { border-color: #15803d; box-shadow: 0 0 0 3px rgba(21,128,61,0.1); background: white; }
-
-  @keyframes scaleIn {
-    from { opacity: 0; transform: scale(0.92); }
-    to { opacity: 1; transform: scale(1); }
-  }
-  .nt-scale-in { animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-
-  @media (max-width: 768px) {
-    .nt-pkg-grid { grid-template-columns: 1fr !important; }
-    .nt-why-grid { grid-template-columns: 1fr !important; }
-    .nt-controls-row { flex-direction: column !important; }
-  }
-  @media (min-width: 640px) and (max-width: 1023px) {
-    .nt-pkg-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  }
-`;
+import '../assets/css/package.css';
 
 const DIFFICULTY = {
-  moderate: { bg: '#dbeafe', text: '#1d4ed8' },
-  challenging: { bg: '#fef3c7', text: '#92400e' },
+  moderate:   { bg: 'bg-blue-50',   text: 'text-blue-700',   border: 'border-blue-100' },
+  challenging:{ bg: 'bg-amber-50',  text: 'text-amber-700',  border: 'border-amber-100' },
 };
 
 export default function Packages() {
-  const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState('all');
-  const [sort, setSort] = useState('default');
-  const [search, setSearch] = useState('');
-  const [cart, setCart] = useState(null);
-  const [cartOpen, setCartOpen] = useState(false);
-  const [alert, setAlert] = useState({ show: false, title: '', message: '', type: 'success' });
+  const [page, setPage]       = useState(1);
+  const [filter, setFilter]   = useState('all');
+  const [sort, setSort]       = useState('default');
+  const [search, setSearch]   = useState('');
+  const [cart, setCart]       = useState(null);
+  const [cartOpen, setCartOpen]   = useState(false);
+  const [alert, setAlert]     = useState({ show: false, title: '', message: '', type: 'success' });
+  // key forces full re-mount of card grid when filter changes — fixes opacity:0 stuck issue
+  const [gridKey, setGridKey] = useState(0);
+
   const revealRefs = useRef([]);
   const PER_PAGE = 6;
 
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
 
+  // Observe freshly mounted reveal elements
   useEffect(() => {
+    revealRefs.current = [];
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-      { threshold: 0.08 }
+      { threshold: 0.06 }
     );
-    revealRefs.current.forEach(el => el && observer.observe(el));
-    return () => observer.disconnect();
+    // small delay so DOM settles after grid re-key
+    const tid = setTimeout(() => {
+      revealRefs.current.forEach(el => el && observer.observe(el));
+    }, 30);
+    return () => { clearTimeout(tid); observer.disconnect(); };
+  }, [gridKey, page]);
+
+  const addRef = useCallback(el => {
+    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   }, []);
 
-  const addRef = el => {
-    if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
-  };
-
-  // Reset page when filter/sort/search changes
-  useEffect(() => { setPage(1); }, [filter, sort, search]);
+  // When filter / sort / search changes: reset page + re-key grid
+  useEffect(() => {
+    setPage(1);
+    setGridKey(k => k + 1);
+  }, [filter, sort, search]);
 
   const getFiltered = () => {
     let list = [...treks];
@@ -225,16 +69,16 @@ export default function Packages() {
       );
     }
     if (filter !== 'all') list = list.filter(x => x.category === filter);
-    if (sort === 'price-asc') list.sort((a, b) => a.price - b.price);
-    if (sort === 'price-desc') list.sort((a, b) => b.price - a.price);
-    if (sort === 'duration-asc') list.sort((a, b) => a.duration - b.duration);
+    if (sort === 'price-asc')     list.sort((a, b) => a.price - b.price);
+    if (sort === 'price-desc')    list.sort((a, b) => b.price - a.price);
+    if (sort === 'duration-asc')  list.sort((a, b) => a.duration - b.duration);
     if (sort === 'duration-desc') list.sort((a, b) => b.duration - a.duration);
     return list;
   };
 
-  const filtered = getFiltered();
+  const filtered  = getFiltered();
   const totalPages = Math.ceil(filtered.length / PER_PAGE);
-  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const addToCart = trek => {
     if (cart && cart.name !== trek.name) {
@@ -246,118 +90,97 @@ export default function Packages() {
   };
 
   const whyUs = [
-    { icon: <FaShieldAlt size={28} />, title: 'Safety First', desc: 'Certified guides, emergency protocols, and comprehensive travel insurance.' },
-    { icon: <FaAward size={28} />, title: 'Expert Guides', desc: 'Local experts with 10+ years of Himalayan trekking experience.' },
-    { icon: <FaHeart size={28} />, title: 'Sustainable Tourism', desc: 'Eco-friendly practices that support local communities and protect nature.' },
+    { icon: <FaShieldAlt size={24} />, title: 'Safety First', desc: 'Certified guides, emergency protocols, and comprehensive travel insurance.' },
+    { icon: <FaAward size={24} />, title: 'Expert Guides', desc: 'Local experts with 10+ years of Himalayan trekking experience.' },
+    { icon: <FaHeart size={24} />, title: 'Sustainable Tourism', desc: 'Eco-friendly practices that support local communities and protect nature.' },
+  ];
+
+  const filterBtns = [
+    { key: 'all', label: 'All Treks', icon: <GiMountainRoad size={14} /> },
+    { key: 'moderate', label: 'Moderate', icon: <GiHiking size={14} /> },
+    { key: 'challenging', label: 'Challenging', icon: <FaMountain size={13} /> },
   ];
 
   return (
-    <div className="nt-font-body" style={{ minHeight: '100vh', background: '#f8fafc' }}>
-      <style>{FONTS}{STYLES}</style>
+    <div className="pkg-body min-h-screen" style={{ background: '#f8fafc' }}>
 
       {/* ── HERO ── */}
       <header
+        className="relative flex items-center justify-center text-center text-white overflow-hidden"
         style={{
-          position: 'relative',
-          minHeight: '62vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          color: 'white',
-          overflow: 'hidden',
+          minHeight: '56vh',
           backgroundImage: `url('src/assets/img/image.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           paddingTop: '68px',
         }}
       >
-        <div style={{
-          position: 'absolute', inset: 0,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 60%, rgba(5,46,22,0.88) 100%)',
-        }} />
-        <div style={{ position: 'relative', zIndex: 2, padding: '48px 24px', maxWidth: '800px', margin: '0 auto' }}>
-          <p style={{ color: '#4ade80', fontSize: '12px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '16px' }}>
-            ALL HIMALAYAN ROUTES
-          </p>
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.6) 60%, rgba(5,46,22,0.9) 100%)' }}
+        />
+        <div className="relative z-10 max-w-2xl mx-auto px-6 py-12">
+          <p className="text-green-400 text-[11px] font-semibold tracking-[3px] uppercase mb-3">All Himalayan Routes</p>
           <h1
-            className="nt-font-display nt-hero-text"
-            style={{ fontSize: 'clamp(2.2rem, 6.5vw, 5rem)', fontWeight: 900, lineHeight: 1.08, margin: '0 0 16px' }}
+            className="pkg-display pkg-hero-text leading-tight mb-3"
+            style={{ fontSize: 'clamp(2rem, 5.5vw, 3.6rem)', fontWeight: 700, letterSpacing: '-0.01em' }}
           >
             Our Trekking <em>Packages</em>
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', lineHeight: 1.7, maxWidth: '540px', margin: '0 auto 28px' }}>
+          <p className="text-white/65 mb-7 leading-relaxed mx-auto" style={{ fontSize: 'clamp(0.85rem, 1.6vw, 0.98rem)', maxWidth: '480px' }}>
             Find your perfect Himalayan journey — from gentle valley walks to legendary high-altitude expeditions.
           </p>
           <a
             href="#treks"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              background: 'linear-gradient(135deg, #15803d, #16a34a)',
-              color: 'white', padding: '14px 28px', borderRadius: '100px',
-              fontWeight: 600, fontSize: '15px', textDecoration: 'none',
-              boxShadow: '0 8px 28px rgba(21,128,61,0.4)',
-            }}
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white font-semibold px-6 py-2.5 rounded-full text-sm transition-all duration-200 hover:scale-105 shadow-lg"
           >
-            <GiHiking size={18} />
-            Explore Adventures
-            <BsArrowRight />
+            <GiHiking size={16} /> Explore Adventures <BsArrowRight size={13} />
           </a>
         </div>
       </header>
 
-      {/* ── PACKAGES SECTION ── */}
-      <section id="treks" style={{ padding: '64px 24px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      {/* ── PACKAGES ── */}
+      <section id="treks" className="py-16 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
 
           {/* Heading */}
-          <div ref={addRef} className="nt-scroll-reveal" style={{ textAlign: 'center', marginBottom: '36px' }}>
-            <h2 className="nt-font-display" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 700, color: '#0f172a', margin: '0 0 10px' }}>
+          <div className="text-center mb-8">
+            <h2
+              className="pkg-display text-slate-900 mb-2"
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 700 }}
+            >
               Choose Your <em>Adventure</em>
             </h2>
-            <p style={{ color: '#64748b', fontSize: '16px', maxWidth: '500px', margin: '0 auto', lineHeight: 1.65 }}>
+            <p className="text-slate-500 text-sm max-w-md mx-auto leading-relaxed">
               Our most beloved trekking routes, curated for every explorer.
             </p>
           </div>
 
-          {/* Search + Sort */}
-          <div
-            ref={addRef}
-            className="nt-scroll-reveal nt-controls-row"
-            style={{
-              background: 'white',
-              borderRadius: '16px',
-              border: '1px solid #e2e8f0',
-              padding: '16px 20px',
-              marginBottom: '16px',
-              display: 'flex',
-              gap: '12px',
-              alignItems: 'center',
-              boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-            }}
-          >
-            <div style={{ position: 'relative', flex: 1 }}>
-              <BsSearch style={{
-                position: 'absolute', left: '14px', top: '50%',
-                transform: 'translateY(-50%)', color: '#94a3b8', fontSize: '15px',
-              }} />
+          {/* Search + Sort bar */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 mb-4 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+            <div className="relative flex-1">
+              <BsSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
               <input
                 type="text"
-                placeholder="Search by name, location, or duration..."
+                placeholder="Search treks by name, location, or duration…"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="nt-search-input"
+                className="pkg-search w-full pl-9 pr-9 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-700 bg-slate-50 transition-all"
               />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  <BsXCircle size={14} />
+                </button>
+              )}
             </div>
             <select
               value={sort}
               onChange={e => setSort(e.target.value)}
-              style={{
-                padding: '11px 16px', borderRadius: '12px', border: '1.5px solid #e2e8f0',
-                color: '#374151', background: 'white', fontSize: '14px',
-                fontFamily: 'DM Sans, system-ui, sans-serif', cursor: 'pointer',
-                outline: 'none', minWidth: '180px',
-              }}
+              className="py-2.5 px-4 rounded-xl border border-slate-200 text-sm text-slate-700 bg-white outline-none cursor-pointer font-medium min-w-[190px]"
+              style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
             >
               <option value="default">Sort: Default</option>
               <option value="price-asc">Price: Low → High</option>
@@ -367,149 +190,128 @@ export default function Packages() {
             </select>
           </div>
 
-          {/* Filter Pills */}
-          <div ref={addRef} className="nt-scroll-reveal" style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '32px', alignItems: 'center' }}>
-            {[
-              { key: 'all', label: 'All Treks', icon: <GiMountainRoad /> },
-              { key: 'moderate', label: 'Moderate', icon: <GiHiking /> },
-              { key: 'challenging', label: 'Challenging', icon: <FaMountain /> },
-            ].map(f => (
+          {/* Filter pills + count */}
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            {filterBtns.map(f => (
               <button
                 key={f.key}
                 onClick={() => setFilter(f.key)}
-                className={`nt-filter-btn ${filter === f.key ? 'active' : ''}`}
+                className={`pkg-filter inline-flex items-center gap-1.5 px-4 py-2 rounded-full border text-sm font-medium transition-all ${
+                  filter === f.key
+                    ? 'active-filter bg-green-700 text-white border-transparent shadow-md'
+                    : 'bg-white text-slate-600 border-slate-200'
+                }`}
               >
                 {f.icon} {f.label}
               </button>
             ))}
-            <span style={{ marginLeft: 'auto', color: '#64748b', fontSize: '14px', alignSelf: 'center' }}>
-              <strong style={{ color: '#15803d' }}>{filtered.length}</strong> package{filtered.length !== 1 ? 's' : ''} found
+            <span className="ml-auto text-slate-500 text-sm">
+              <span className="font-bold text-green-700">{filtered.length}</span>
+              {' '}package{filtered.length !== 1 ? 's' : ''} found
             </span>
           </div>
 
-          {/* Cards Grid */}
+          {/* Cards — key forces re-mount on filter change, fixing opacity:0 stuck */}
           {paginated.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '80px 24px' }}>
-              <div style={{
-                width: '80px', height: '80px', borderRadius: '50%',
-                background: '#f1f5f9', display: 'flex', alignItems: 'center',
-                justifyContent: 'center', margin: '0 auto 20px',
-              }}>
-                <BsCart size={32} color="#cbd5e1" />
+            <div className="text-center py-20">
+              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                <BsCart size={28} className="text-slate-300" />
               </div>
-              <h3 className="nt-font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#475569', margin: '0 0 8px' }}>No treks found</h3>
-              <p style={{ color: '#94a3b8', margin: 0 }}>Try adjusting your search or filter.</p>
+              <h3 className="pkg-display text-xl font-bold text-slate-500 mb-2">No treks found</h3>
+              <p className="text-slate-400 text-sm">Try adjusting your search or filter.</p>
+              {(search || filter !== 'all') && (
+                <button
+                  onClick={() => { setSearch(''); setFilter('all'); }}
+                  className="mt-4 text-green-700 font-semibold text-sm underline underline-offset-2"
+                >
+                  Clear filters
+                </button>
+              )}
             </div>
           ) : (
             <div
-              className="nt-pkg-grid"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}
+              key={gridKey}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {paginated.map((trek, idx) => {
                 const inCart = cart?.name === trek.name;
-                const diff = DIFFICULTY[trek.category] || { bg: '#f1f5f9', text: '#475569' };
+                const diff   = DIFFICULTY[trek.category] || { bg: 'bg-slate-100', text: 'text-slate-600', border: 'border-slate-200' };
 
                 return (
                   <div
-                    key={trek.name}
+                    key={`${trek.name}-${gridKey}`}
                     ref={addRef}
-                    className="nt-scroll-reveal nt-pkg-card"
-                    style={{
-                      background: 'white',
-                      borderRadius: '20px',
-                      overflow: 'hidden',
-                      transitionDelay: `${idx * 60}ms`,
-                    }}
+                    className="pkg-reveal pkg-trek-card pkg-card-enter bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm"
+                    style={{ animationDelay: `${idx * 55}ms`, transitionDelay: `${idx * 55}ms` }}
                   >
                     {/* Image */}
-                    <div style={{ position: 'relative', overflow: 'hidden', height: '210px' }}>
+                    <div className="relative overflow-hidden" style={{ height: '200px' }}>
                       <img
                         src={trek.image}
                         alt={trek.name}
-                        className="nt-pkg-img"
-                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        className="pkg-img w-full h-full object-cover"
                         loading="lazy"
                       />
-                      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5) 100%)' }} />
+                      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.5) 100%)' }} />
                       {trek.featured && (
-                        <span style={{
-                          position: 'absolute', top: '12px', left: '12px',
-                          background: 'linear-gradient(135deg, #d97706, #f59e0b)',
-                          color: 'white', fontSize: '10px', fontWeight: 700,
-                          padding: '4px 11px', borderRadius: '100px', letterSpacing: '0.5px',
-                        }}>★ Featured</span>
+                        <span className="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">
+                          ★ Featured
+                        </span>
                       )}
-                      <span style={{
-                        position: 'absolute', top: '12px', right: '12px',
-                        background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)',
-                        color: 'white', fontSize: '12px', padding: '4px 11px', borderRadius: '100px',
-                      }}>{trek.duration} Days</span>
+                      <span className="absolute top-3 right-3 bg-black/50 backdrop-blur text-white text-[11px] px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <FaClock size={9} /> {trek.duration}d
+                      </span>
                     </div>
 
                     {/* Body */}
-                    <div style={{ padding: '22px' }}>
-                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px' }}>
-                        <h3
-                          className="nt-font-display"
-                          style={{ flex: 1, fontSize: '18px', fontWeight: 700, color: '#0f172a', lineHeight: 1.3, margin: 0 }}
-                        >
-                          {trek.name}
-                        </h3>
-                        <span style={{
-                          flexShrink: 0,
-                          background: diff.bg, color: diff.text,
-                          padding: '4px 10px', borderRadius: '100px',
-                          fontSize: '11px', fontWeight: 600,
-                        }}>
+                    <div className="p-5">
+                      <div className="flex items-start gap-2 mb-2">
+                        <h3 className="pkg-display flex-1 font-bold text-slate-900 text-[1.1rem] leading-snug">{trek.name}</h3>
+                        <span className={`flex-shrink-0 text-[10px] font-semibold px-2.5 py-1 rounded-full border ${diff.bg} ${diff.text} ${diff.border}`}>
                           {trek.category.charAt(0).toUpperCase() + trek.category.slice(1)}
                         </span>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#64748b', fontSize: '13px', marginBottom: '10px' }}>
-                        <FaMapMarkerAlt color="#15803d" size={12} />
+                      <div className="flex items-center gap-1.5 text-slate-400 text-xs mb-3">
+                        <FaMapMarkerAlt className="text-green-600" size={10} />
                         {trek.location}, Nepal
                       </div>
 
-                      <p style={{ color: '#64748b', fontSize: '14px', lineHeight: 1.65, margin: '0 0 18px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                      <p className="text-slate-500 text-sm leading-relaxed mb-4 line-clamp-2">
                         {trek.description}
                       </p>
 
-                      <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '16px' }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '14px' }}>
+                      <div className="border-t border-slate-100 pt-4">
+                        <div className="flex items-end justify-between mb-3">
                           <div>
-                            <p style={{ fontSize: '11px', color: '#94a3b8', margin: '0 0 2px' }}>From</p>
-                            <p className="nt-font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#15803d', margin: 0 }}>
+                            <p className="text-[11px] text-slate-400 mb-0.5">From</p>
+                            <p className="pkg-display text-green-700 font-bold text-xl leading-none">
                               Rs. {trek.price.toLocaleString()}
                             </p>
-                            <p style={{ fontSize: '11px', color: '#94a3b8', margin: 0 }}>per person</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">per person</p>
                           </div>
                           {inCart && (
-                            <span style={{
-                              display: 'flex', alignItems: 'center', gap: '5px',
-                              color: '#15803d', fontSize: '12px', fontWeight: 600,
-                              background: '#f0fdf4', padding: '6px 12px', borderRadius: '100px',
-                              border: '1px solid #bbf7d0',
-                            }}>
-                              <FaCheck size={10} /> In Cart
+                            <span className="flex items-center gap-1 text-green-700 text-[11px] font-semibold bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
+                              <FaCheck size={9} /> In Cart
                             </span>
                           )}
                         </div>
 
-                        <div style={{ display: 'flex', gap: '10px' }}>
+                        <div className="flex gap-2">
                           <button
                             onClick={() => addToCart(trek)}
-                            className={`nt-add-btn ${inCart ? 'in-cart' : ''}`}
-                            style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '13px' }}
+                            className={`pkg-cart-btn flex-1 flex items-center justify-center gap-1.5 text-white text-xs font-semibold py-2.5 rounded-xl ${
+                              inCart ? 'bg-green-900' : 'bg-green-700 hover:bg-green-800'
+                            }`}
                           >
-                            <FaCartPlus size={14} />
+                            <FaCartPlus size={12} />
                             {inCart ? 'In Cart' : 'Add to Cart'}
                           </button>
                           <a
                             href={trek.link || '#'}
-                            className="nt-details-btn"
-                            style={{ flex: 1, padding: '10px', borderRadius: '12px', fontSize: '13px' }}
+                            className="pkg-details-btn flex-1 flex items-center justify-center gap-1.5 text-green-700 text-xs font-medium py-2.5 rounded-xl border border-green-700"
                           >
-                            <FaInfoCircle size={14} />
+                            <FaInfoCircle size={12} />
                             Details
                           </a>
                         </div>
@@ -523,71 +325,63 @@ export default function Packages() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div ref={addRef} className="nt-scroll-reveal" style={{ marginTop: '40px', display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap' }}>
-              {page > 1 && (
-                <button className="nt-page-btn" onClick={() => setPage(p => p - 1)}>
-                  <FaChevronLeft size={12} />
-                </button>
-              )}
+            <div className="mt-10 flex justify-center items-center gap-2 flex-wrap">
+              <button
+                onClick={() => setPage(p => p - 1)}
+                disabled={page === 1}
+                className="pkg-page-btn w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <FaChevronLeft size={11} />
+              </button>
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-                <button key={p} className={`nt-page-btn ${p === page ? 'active' : ''}`} onClick={() => setPage(p)}>
+                <button
+                  key={p}
+                  onClick={() => setPage(p)}
+                  className={`pkg-page-btn w-9 h-9 flex items-center justify-center rounded-xl border text-sm font-medium ${
+                    p === page
+                      ? 'active-page bg-green-700 text-white border-transparent shadow'
+                      : 'bg-white text-slate-600 border-slate-200'
+                  }`}
+                >
                   {p}
                 </button>
               ))}
-              {page < totalPages && (
-                <button className="nt-page-btn" onClick={() => setPage(p => p + 1)}>
-                  <FaChevronRight size={12} />
-                </button>
-              )}
+              <button
+                onClick={() => setPage(p => p + 1)}
+                disabled={page === totalPages}
+                className="pkg-page-btn w-9 h-9 flex items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                <FaChevronRight size={11} />
+              </button>
             </div>
           )}
         </div>
       </section>
 
       {/* ── WHY US ── */}
-      <section style={{ padding: '64px 24px', background: 'linear-gradient(135deg, #f0fdf4, #ffffff)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div ref={addRef} className="nt-scroll-reveal" style={{ textAlign: 'center', marginBottom: '44px' }}>
-            <p style={{ color: '#15803d', fontSize: '12px', fontWeight: 700, letterSpacing: '3px', textTransform: 'uppercase', marginBottom: '10px' }}>
-              OUR PROMISE
-            </p>
-            <h2 className="nt-font-display" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 700, color: '#0f172a', margin: 0 }}>
+      <section className="py-16 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #fff 100%)' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-10">
+            <p className="text-green-700 text-[11px] font-semibold tracking-[3px] uppercase mb-2">Our Promise</p>
+            <h2
+              className="pkg-display text-slate-900"
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 700 }}
+            >
               Why Choose <em>Nepal Treks?</em>
             </h2>
           </div>
 
-          <div className="nt-why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {whyUs.map((item, i) => (
               <div
                 key={item.title}
-                ref={addRef}
-                className="nt-scroll-reveal nt-pkg-card"
-                style={{
-                  padding: '32px',
-                  borderRadius: '20px',
-                  background: 'white',
-                  textAlign: 'center',
-                  transitionDelay: `${i * 100}ms`,
-                  boxShadow: '0 2px 16px rgba(0,0,0,0.06)',
-                }}
+                className="pkg-why-card bg-white p-7 rounded-2xl border border-slate-100 shadow-sm text-center"
               >
-                <div style={{
-                  width: '72px', height: '72px',
-                  borderRadius: '18px',
-                  background: '#dcfce7',
-                  color: '#15803d',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  margin: '0 auto 20px',
-                  transition: 'all 0.3s ease',
-                }}>
+                <div className="pkg-why-icon w-14 h-14 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center mx-auto mb-5">
                   {item.icon}
                 </div>
-                <h3 className="nt-font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#0f172a', margin: '0 0 10px' }}>
-                  {item.title}
-                </h3>
-                <p style={{ color: '#64748b', fontSize: '14px', lineHeight: 1.65, margin: 0 }}>
-                  {item.desc}
-                </p>
+                <h3 className="pkg-display font-bold text-slate-900 text-xl mb-2">{item.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -595,122 +389,90 @@ export default function Packages() {
       </section>
 
       {/* ── FLOATING CART ── */}
-      <button className="nt-cart-fab" onClick={() => setCartOpen(true)}>
-        <BsCart size={22} />
+      <button
+        onClick={() => setCartOpen(true)}
+        className="pkg-fab fixed bottom-7 right-7 w-14 h-14 rounded-full bg-green-700 text-white flex items-center justify-center shadow-xl z-40"
+        style={{ position: 'fixed' }}
+      >
+        <BsCart size={20} />
         {cart && (
-          <span style={{
-            position: 'absolute', top: '-6px', right: '-6px',
-            width: '22px', height: '22px', borderRadius: '50%',
-            background: '#ef4444', color: 'white',
-            fontSize: '11px', fontWeight: 700,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-          }}>1</span>
+          <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center shadow">
+            1
+          </span>
         )}
       </button>
 
       {/* ── CART MODAL ── */}
       {cartOpen && (
         <div
-          style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
-            backdropFilter: 'blur(4px)', zIndex: 50,
-            display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px',
-          }}
+          className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4"
           onClick={() => setCartOpen(false)}
         >
           <div
-            className="nt-scale-in"
-            style={{
-              background: 'white', borderRadius: '24px',
-              padding: '32px', maxWidth: '420px', width: '100%',
-              boxShadow: '0 24px 80px rgba(0,0,0,0.2)',
-            }}
+            className="pkg-modal bg-white rounded-2xl p-7 max-w-md w-full shadow-2xl"
             onClick={e => e.stopPropagation()}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-              <h3 className="nt-font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a', margin: 0, display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{
-                  width: '38px', height: '38px', borderRadius: '12px',
-                  background: '#dcfce7', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <BsCartCheck size={18} color="#15803d" />
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="pkg-display font-bold text-slate-900 text-xl flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-green-100 flex items-center justify-center">
+                  <BsCartCheck size={17} className="text-green-700" />
                 </div>
                 Your Cart
               </h3>
               <button
                 onClick={() => setCartOpen(false)}
-                style={{
-                  width: '34px', height: '34px', borderRadius: '10px',
-                  background: '#f1f5f9', border: 'none', cursor: 'pointer',
-                  fontSize: '18px', color: '#64748b', display: 'flex',
-                  alignItems: 'center', justifyContent: 'center',
-                }}
-              >✕</button>
+                className="w-8 h-8 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-200 flex items-center justify-center text-lg transition-colors"
+              >
+                ✕
+              </button>
             </div>
 
             {cart ? (
-              <div style={{ padding: '18px', borderRadius: '16px', background: '#f0fdf4', border: '1px solid #bbf7d0', marginBottom: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
+              <div className="p-4 rounded-xl bg-green-50 border border-green-100 mb-5">
+                <div className="flex justify-between gap-4">
                   <div>
-                    <p style={{ fontWeight: 700, color: '#0f172a', fontSize: '16px', margin: '0 0 6px' }}>{cart.name}</p>
-                    <p style={{ color: '#64748b', fontSize: '13px', margin: 0, display: 'flex', alignItems: 'center', gap: '5px' }}>
-                      <FaMapMarkerAlt color="#15803d" size={11} /> {cart.location}, Nepal · {cart.duration} Days
+                    <p className="font-bold text-slate-900 text-base mb-1">{cart.name}</p>
+                    <p className="text-slate-500 text-xs flex items-center gap-1">
+                      <FaMapMarkerAlt className="text-green-600" size={10} />
+                      {cart.location}, Nepal · {cart.duration} Days
                     </p>
                   </div>
-                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                    <p className="nt-font-display" style={{ fontSize: '20px', fontWeight: 700, color: '#15803d', margin: '0 0 6px' }}>
-                      Rs. {cart.price.toLocaleString()}
-                    </p>
-                    <button onClick={() => setCart(null)} style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontSize: '12px' }}>
+                  <div className="text-right flex-shrink-0">
+                    <p className="pkg-display text-green-700 font-bold text-xl">Rs. {cart.price.toLocaleString()}</p>
+                    <button onClick={() => setCart(null)} className="text-red-500 hover:text-red-700 text-xs mt-1 transition-colors">
                       Remove
                     </button>
                   </div>
                 </div>
               </div>
             ) : (
-              <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                <div style={{
-                  width: '72px', height: '72px', borderRadius: '50%',
-                  background: '#f1f5f9', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', margin: '0 auto 14px',
-                }}>
-                  <BsCart size={28} color="#cbd5e1" />
+              <div className="text-center py-10">
+                <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-3">
+                  <BsCart size={24} className="text-slate-300" />
                 </div>
-                <p style={{ color: '#64748b', fontSize: '16px', margin: 0 }}>Your cart is empty</p>
+                <p className="text-slate-500 text-sm">Your cart is empty</p>
               </div>
             )}
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #f1f5f9', paddingTop: '16px', marginBottom: '18px' }}>
-              <span style={{ color: '#475569', fontWeight: 600 }}>Total</span>
-              <span className="nt-font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#15803d' }}>
+            <div className="flex justify-between items-center border-t border-slate-100 py-4 mb-4">
+              <span className="text-slate-600 font-semibold text-sm">Total</span>
+              <span className="pkg-display text-green-700 font-bold text-2xl">
                 Rs. {cart ? cart.price.toLocaleString() : '0'}
               </span>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="flex gap-2.5">
               {cart && (
                 <button
                   onClick={() => { setCart(null); setCartOpen(false); }}
-                  style={{
-                    flex: 1, padding: '12px', borderRadius: '14px',
-                    background: '#fef2f2', color: '#ef4444', border: '1px solid #fecaca',
-                    cursor: 'pointer', fontWeight: 600, fontSize: '14px',
-                    fontFamily: 'DM Sans, system-ui, sans-serif',
-                  }}
+                  className="flex-1 py-2.5 rounded-xl bg-red-50 text-red-600 border border-red-100 hover:bg-red-100 text-sm font-semibold transition-colors"
                 >
                   Clear Cart
                 </button>
               )}
               <button
                 onClick={() => setCartOpen(false)}
-                style={{
-                  flex: 1, padding: '12px', borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #15803d, #166534)',
-                  color: 'white', border: 'none', cursor: 'pointer',
-                  fontWeight: 600, fontSize: '14px',
-                  fontFamily: 'DM Sans, system-ui, sans-serif',
-                }}
+                className="flex-1 py-2.5 rounded-xl bg-green-700 text-white text-sm font-semibold hover:bg-green-800 transition-colors"
               >
                 {cart ? 'Checkout' : 'Continue Exploring'}
               </button>
@@ -721,45 +483,23 @@ export default function Packages() {
 
       {/* ── ALERT MODAL ── */}
       {alert.show && (
-        <div style={{
-          position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.55)',
-          backdropFilter: 'blur(4px)', zIndex: 50,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px',
-        }}>
-          <div
-            className="nt-scale-in"
-            style={{
-              background: 'white', borderRadius: '24px',
-              padding: '36px 28px', maxWidth: '360px', width: '100%',
-              textAlign: 'center', boxShadow: '0 24px 80px rgba(0,0,0,0.2)',
-            }}
-          >
-            <div style={{
-              width: '72px', height: '72px', borderRadius: '18px',
-              background: alert.type === 'error' ? '#fef2f2' : '#dcfce7',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              margin: '0 auto 20px',
-            }}>
+        <div className="fixed inset-0 bg-black/55 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="pkg-modal bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 ${
+              alert.type === 'error' ? 'bg-red-50' : 'bg-green-100'
+            }`}>
               {alert.type === 'error'
-                ? <FaMountain size={28} color="#ef4444" />
-                : <FaCheck size={28} color="#15803d" />
+                ? <FaMountain size={24} className="text-red-500" />
+                : <FaCheck size={24} className="text-green-700" />
               }
             </div>
-            <h3 className="nt-font-display" style={{ fontSize: '22px', fontWeight: 700, color: '#0f172a', margin: '0 0 10px' }}>
-              {alert.title}
-            </h3>
-            <p style={{ color: '#64748b', lineHeight: 1.6, margin: '0 0 24px' }}>{alert.message}</p>
+            <h3 className="pkg-display font-bold text-slate-900 text-xl mb-2">{alert.title}</h3>
+            <p className="text-slate-500 text-sm leading-relaxed mb-6">{alert.message}</p>
             <button
               onClick={() => setAlert({ show: false })}
-              style={{
-                width: '100%', padding: '13px', borderRadius: '14px',
-                background: alert.type === 'error'
-                  ? 'linear-gradient(135deg, #ef4444, #dc2626)'
-                  : 'linear-gradient(135deg, #15803d, #166534)',
-                color: 'white', border: 'none', cursor: 'pointer',
-                fontWeight: 600, fontSize: '15px',
-                fontFamily: 'DM Sans, system-ui, sans-serif',
-              }}
+              className={`w-full py-3 rounded-xl text-white font-semibold text-sm transition-colors ${
+                alert.type === 'error' ? 'bg-red-500 hover:bg-red-600' : 'bg-green-700 hover:bg-green-800'
+              }`}
             >
               Got It
             </button>
