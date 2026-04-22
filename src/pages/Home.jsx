@@ -208,7 +208,7 @@ export default function Home() {
 
       {/* ══ TESTIMONIALS ══ */}
       <section className="py-20 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #0c1a3a 0%, #0c4a6e 50%, #0c1a3a 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0c4a6e 100%)' }}>
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none opacity-10"
           style={{ background: 'radial-gradient(circle, #38bdf8, transparent 65%)', transform: 'translate(30%,-30%)', filter: 'blur(30px)' }} />
         <div className="ts-noise absolute inset-0 pointer-events-none" />
@@ -216,7 +216,8 @@ export default function Home() {
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <div ref={addRef} className="ts-reveal text-center mb-12">
             <p className="ts-eyebrow text-cyan-400 mb-3">Trekker Stories</p>
-            <div className="ts-divider mx-auto mb-5" style={{ background: 'linear-gradient(90deg,#38bdf8,#06b6d4)' }} />
+            <div className="ts-divider mx-auto mb-5"
+             style={{ background: 'linear-gradient(90deg,#38bdf8,#06b6d4)' }} />
             <h2 className="ts-display text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
               Voices from the <em>Trail</em>
             </h2>

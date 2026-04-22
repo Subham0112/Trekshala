@@ -22,14 +22,14 @@ const STYLES = `
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #15803d, #22c55e);
+    background: linear-gradient(90deg, #15807b, #21d3d3);
     border-radius: 2px;
     transition: width 0.3s ease;
   }
-  .nt-nav-link:hover { color: #15803d; }
+  .nt-nav-link:hover { color: #158065; }
   .nt-nav-link:hover::after,
   .nt-nav-link.active::after { width: 100%; }
-  .nt-nav-link.active { color: #15803d; font-weight: 600; }
+  .nt-nav-link.active { color: #15806e; font-weight: 600; }
 
   .nt-overlay {
     position: fixed;
@@ -162,7 +162,7 @@ export default function Navbar() {
                   fontSize: '22px',
                   fontWeight: 800,
                   letterSpacing: '-0.5px',
-                  background: 'linear-gradient(135deg, #166534, #15803d, #22c55e)',
+                  background: 'linear-gradient(135deg, #16b1a4, #15806e, #2ff5c3)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
@@ -194,7 +194,7 @@ export default function Navbar() {
                 style={{
                   padding: '10px 24px',
                   borderRadius: '100px',
-                  background: 'linear-gradient(135deg, #15803d, #166534)',
+                  background: 'linear-gradient(135deg, #158080, #1f7c83)',
                   color: 'white',
                   fontWeight: 600,
                   fontSize: '14px',
@@ -205,11 +205,11 @@ export default function Navbar() {
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(21,128,61,0.45)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(21, 112, 128, 0.45)';
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(21,128,61,0.35)';
+                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(21, 112, 128, 0.35)';
                 }}
               >
                 Contact Us
@@ -254,7 +254,7 @@ export default function Navbar() {
             <div style={{
               fontSize: '18px',
               fontWeight: 800,
-              background: 'linear-gradient(135deg, #166534, #15803d)',
+              background: 'linear-gradient(135deg, #166561, #157980)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
