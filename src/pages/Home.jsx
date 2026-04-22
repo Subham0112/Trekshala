@@ -1,10 +1,10 @@
 // src/pages/Home.jsx
 import React, { useEffect, useRef } from 'react';
-import { FaMountain, FaLeaf, FaStar, FaRoute, FaUsers, FaMedal } from 'react-icons/fa';
+import { FaLeaf, FaStar, FaRoute, FaUsers, FaMedal, FaShieldAlt, FaQuoteLeft } from 'react-icons/fa';
 import { GiMountainRoad, GiHiking, GiBackpack } from 'react-icons/gi';
-import { HiOutlineShieldCheck } from 'react-icons/hi';
-import { BsArrowRight } from 'react-icons/bs';
-import '../assets/css/home.css';
+import { BsArrowRight, BsArrowUpRight } from 'react-icons/bs';
+import { HiOutlineSparkles } from 'react-icons/hi';
+import '../assets/css/theme.css';
 
 export default function Home() {
   const revealRefs = useRef([]);
@@ -23,184 +23,134 @@ export default function Home() {
   };
 
   const features = [
-    { icon: <GiMountainRoad size={22} />, title: 'Expert Guides', desc: 'Certified local masters with deep Himalayan knowledge and high-altitude safety training.' },
-    { icon: <GiBackpack size={22} />, title: 'Authentic Stays', desc: 'Curated homestays and teahouses for genuine cultural immersion.' },
-    { icon: <HiOutlineShieldCheck size={22} />, title: 'Safety First', desc: 'Top-tier gear, emergency protocols, and comprehensive insurance.' },
-    { icon: <FaLeaf size={20} />, title: 'Eco-Conscious', desc: 'Leave-no-trace policies and community-first sustainable practices.' },
+    { icon: <GiMountainRoad size={22} />, title: 'Expert Guides',   desc: 'Certified local masters with deep Himalayan knowledge and high-altitude safety training.' },
+    { icon: <GiBackpack     size={22} />, title: 'Authentic Stays', desc: 'Curated teahouses and homestays for genuine cultural immersion you cannot find elsewhere.' },
+    { icon: <FaShieldAlt   size={20} />, title: 'Safety First',    desc: 'Top-tier gear, certified guides, emergency protocols, and comprehensive travel insurance.' },
+    { icon: <FaLeaf        size={20} />, title: 'Eco-Conscious',   desc: 'Leave-no-trace policies, carbon offsets, and community-first sustainable trekking practices.' },
   ];
 
   const stats = [
-    { icon: <FaUsers size={15} />, value: '1,000+', label: 'Happy Trekkers' },
-    { icon: <FaRoute size={15} />, value: '15+',    label: 'Trek Routes' },
-    { icon: <FaMedal size={15} />, value: '14 Yrs', label: 'Experience' },
-    { icon: <FaStar size={15} />,  value: '4.9 ★',  label: 'Avg Rating' },
+    { icon: <FaUsers size={14} />, value: '1,000+', label: 'Happy Trekkers' },
+    { icon: <FaRoute size={14} />, value: '15+',    label: 'Trek Routes'    },
+    { icon: <FaMedal size={14} />, value: '14 Yrs', label: 'Experience'     },
+    { icon: <FaStar  size={14} />, value: '4.9★',   label: 'Avg Rating'     },
   ];
 
   const treks = [
     {
       img: 'src/assets/img/everest.jpg',
-      badge: 'Most Popular',
+      badge: 'Most Popular', badgeCls: 'bg-amber-400 text-slate-900',
       title: 'Everest Base Camp',
-      duration: '14 Days',
-      level: 'Challenging',
-      levelCls: 'bg-amber-100 text-amber-700',
-      desc: "Follow the footsteps of legends to the base of the world's highest peak through Sherpa villages.",
+      duration: '14 Days', level: 'Challenging', levelCls: 'bg-orange-50 text-orange-700 border-orange-200',
+      desc: "Walk in the footsteps of legends to the base of the world's highest peak through timeless Sherpa villages.",
       price: 'Rs. 1,85,000',
     },
     {
       img: 'src/assets/img/annapurna.jpg',
-      badge: 'Scenic Route',
+      badge: 'Scenic Route', badgeCls: 'bg-sky-500 text-white',
       title: 'Annapurna Circuit',
-      duration: '14 Days',
-      level: 'Moderate',
-      levelCls: 'bg-green-100 text-green-700',
-      desc: 'Diverse landscapes from lush subtropical forests to arid high-altitude deserts with stunning views.',
+      duration: '14 Days', level: 'Moderate', levelCls: 'bg-sky-50 text-sky-700 border-sky-200',
+      desc: 'Diverse landscapes from lush subtropical forests to arid high-altitude deserts with spectacular mountain vistas.',
       price: 'Rs. 1,60,000',
     },
     {
       img: 'src/assets/img/langtang.webp',
-      badge: 'Hidden Gem',
+      badge: 'Hidden Gem', badgeCls: 'bg-cyan-500 text-white',
       title: 'Langtang Valley',
-      duration: '8 Days',
-      level: 'Moderate',
-      levelCls: 'bg-green-100 text-green-700',
-      desc: 'A peaceful, less-crowded trail with stunning glacial views and rich Tamang cultural heritage.',
+      duration: '8 Days', level: 'Moderate', levelCls: 'bg-sky-50 text-sky-700 border-sky-200',
+      desc: 'A peaceful, less-crowded trail with stunning glacial lake views and the rich heritage of Tamang culture.',
       price: 'Rs. 1,20,000',
     },
   ];
 
   const reviews = [
-    { name: 'Sarah M.', country: 'United Kingdom', initial: 'S', text: 'Absolutely life-changing. The guides were exceptional and made every moment special.', stars: 5 },
-    { name: 'Kenji T.', country: 'Japan', initial: 'K', text: 'Perfect organization, breathtaking views, and memories that will last a lifetime.', stars: 5 },
-    { name: 'Ana R.', country: 'Brazil', initial: 'A', text: 'Nepal Treks made my dream trek a reality. Every detail was handled flawlessly.', stars: 5 },
+    { name: 'Sarah M.', country: 'United Kingdom', initial: 'S', text: 'Absolutely life-changing. The guides were knowledgeable, warm, and made every moment feel truly magical.', stars: 5 },
+    { name: 'Kenji T.', country: 'Japan',           initial: 'K', text: 'Perfect organisation, jaw-dropping views, and memories I will carry for the rest of my life.', stars: 5 },
+    { name: 'Ana R.',   country: 'Brazil',           initial: 'A', text: 'Nepal Treks made my dream a flawless reality. I have already recommended them to everyone I know.', stars: 5 },
   ];
 
   return (
-    <div className="nt-body overflow-x-hidden">
+    <div className="ts-page overflow-x-hidden">
 
-      {/* ── HERO ── */}
-      <header
-        className="relative flex items-center justify-center text-center text-white overflow-hidden"
-        style={{
-          minHeight: '100vh',
-          backgroundImage: `url('src/assets/img/home.avif')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          paddingTop: '68px',
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.52) 50%, rgba(5,46,22,0.88) 100%)' }}
-        />
+      {/* ══ HERO ══ */}
+      <header className="relative flex items-center justify-center text-center text-white overflow-hidden"
+        style={{ minHeight: '100vh', backgroundImage: `url('src/assets/img/home.avif')`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
 
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-6 py-14">
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(12,26,58,0.35) 0%, rgba(14,165,233,0.22) 50%, rgba(12,26,58,0.92) 100%)' }} />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(56,189,248,0.18), transparent 65%)', filter: 'blur(60px)' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(6,182,212,0.14), transparent 65%)', filter: 'blur(40px)' }} />
+        <div className="ts-noise absolute inset-0 pointer-events-none" />
 
-          {/* Eyebrow line */}
-          <div className="nt-anim-1 flex items-center justify-center gap-3 mb-5">
-            <div className="h-px w-10 bg-green-400/60" />
-            <span className="text-green-400 text-[11px] font-semibold tracking-[3px] uppercase">
-              Premier Trek Operator Since 2010
-            </span>
-            <div className="h-px w-10 bg-green-400/60" />
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 py-16">
+          {/* Eyebrow pill */}
+          <div className="ts-anim-1 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full mb-6"
+            style={{ background: 'rgba(29, 181, 252, 0.4)', border: '1px solid rgba(147,219,250,0.28)', backdropFilter: 'blur(10px)' }}>
+            <HiOutlineSparkles className=" text-sm" />
+            <span className="ts-hero-eyebrow">Premier Trek Operator · Est. 2010</span>
           </div>
 
-          {/* Headline — smaller, cleaner */}
-          <h1
-            className="nt-display nt-hero-text nt-anim-2"
-            style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)', fontWeight: 700, lineHeight: 1.12, letterSpacing: '-0.01em' }}
-          >
-            Discover the <em>Heart</em>
-            <br />of the Himalayas
+          <h1 className="ts-display ts-hero-text ts-anim-2"
+            style={{ fontSize: 'clamp(2.6rem, 6vw, 5rem)', fontWeight: 700, lineHeight: 1.08, letterSpacing: '-0.015em' }}>
+            Discover the <em>Soul</em><br />of the Himalayas
           </h1>
 
-          <p
-            className="nt-anim-3 text-white/70 mt-4 mx-auto leading-relaxed"
-            style={{ fontSize: 'clamp(0.88rem, 1.6vw, 1rem)', maxWidth: '480px' }}
-          >
-            Embark on a transformative journey — where ancient peaks meet timeless culture.
+          <p className="ts-anim-3 text-slate-200/80 mt-5 mx-auto leading-loose"
+            style={{ fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)', maxWidth: '500px' }}>
+            Embark on a transformative journey — where ancient peaks meet timeless culture and every trail tells a story.
           </p>
 
-          {/* CTA buttons */}
-          <div className="nt-anim-4 flex flex-wrap gap-3 justify-center mt-7">
-            <a
-              href="#treks"
-              className="nt-btn-p flex items-center gap-2 bg-green-700 text-white font-semibold px-6 py-2.5 rounded-full text-sm"
-            >
-              <GiHiking size={16} />
-              Explore Treks
-              <BsArrowRight size={13} />
+          <div className="ts-anim-4 flex flex-wrap gap-3 justify-center mt-8">
+            <a href="#treks" className="ts-btn-p inline-flex items-center gap-2 text-white font-semibold px-7 py-3.5 rounded-full text-sm shadow-xl">
+              <GiHiking size={17} /> Explore Treks <BsArrowRight size={14} />
             </a>
-            <a
-              href="/about"
-              className="nt-btn-s flex items-center gap-2 text-white font-medium px-6 py-2.5 rounded-full text-sm"
-              style={{ border: '1.5px solid rgba(255,255,255,0.28)' }}
-            >
+            <a href="/about" className="ts-btn-ghost inline-flex items-center gap-2 text-white font-medium px-7 py-3.5 rounded-full text-sm">
               Our Story
             </a>
           </div>
 
-          {/* Stats row — glass cards */}
-          <div className="nt-anim-4 mt-12 flex flex-wrap justify-center gap-3">
+          {/* Stats glass pills */}
+          <div className="ts-anim-4 mt-14 flex flex-wrap justify-center gap-3">
             {stats.map(({ icon, value, label }) => (
-              <div
-                key={label}
-                className="nt-stat-card flex items-center gap-3 px-4 py-3 rounded-2xl"
-              >
-                <div className="w-8 h-8 rounded-lg bg-green-500/20 text-green-300 flex items-center justify-center flex-shrink-0">
+              <div key={label} className="ts-stat-pill flex items-center gap-3 px-4 py-3 rounded-2xl">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-cyan-300"
+                  style={{ background: 'rgba(14,165,233,0.2)' }}>
                   {icon}
                 </div>
                 <div className="text-left">
-                  <div className="nt-display text-white font-bold leading-none" style={{ fontSize: '1.1rem' }}>
-                    {value}
-                  </div>
-                  <div className="text-white/45 leading-none mt-0.5" style={{ fontSize: '11px' }}>
-                    {label}
-                  </div>
+                  <p className="ts-display text-white font-bold leading-none" style={{ fontSize: '1.15rem' }}>{value}</p>
+                  <p className="text-white/45 text-[11px] mt-0.5 leading-none">{label}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Subtle scroll line — no text */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-35">
-          <div className="w-px h-10 bg-gradient-to-b from-white to-transparent mx-auto" />
-          <div className="w-1 h-1 rounded-full bg-white mx-auto mt-1" />
+        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-35">
+          <span className="text-[10px] text-white tracking-widest uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white to-transparent" />
         </div>
       </header>
 
-      {/* ── WHY US ── */}
+      {/* ══ WHY US ══ */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <div ref={addRef} className="nt-reveal nt-gold-bar text-center max-w-md mx-auto mb-12">
-            <p className="text-green-700 text-[11px] font-semibold tracking-[3px] uppercase mb-2">Why Us</p>
-            <h2
-              className="nt-display text-slate-900"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 700, lineHeight: 1.25 }}
-            >
-              Crafted for the <em className="text-green-700">Discerning</em> Adventurer
+          <div ref={addRef} className="ts-reveal text-center max-w-xl mx-auto mb-14">
+            <p className="ts-eyebrow mb-3">Why Choose Us</p>
+            <div className="ts-divider mx-auto mb-5" />
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700, lineHeight: 1.2 }}>
+              Crafted for the <em className="ts-accent-text">Discerning</em> Adventurer
             </h2>
-            <p className="text-slate-500 mt-3 text-sm leading-relaxed">
-              Every detail of your journey, thoughtfully arranged.
-            </p>
+            <p className="text-slate-500 mt-3 text-sm leading-relaxed">Every detail of your journey, thoughtfully arranged by people who live for the mountains.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {features.map((f, i) => (
-              <div
-                key={f.title}
-                ref={addRef}
-                className="nt-reveal nt-feat-card p-6 rounded-2xl border border-slate-100"
-                style={{
-                  transitionDelay: `${i * 70}ms`,
-                  background: 'linear-gradient(160deg, #f0fdf4 0%, #fff 100%)',
-                }}
-              >
-                <div className="nt-feat-icon w-10 h-10 rounded-xl flex items-center justify-center mb-4 text-green-700 bg-green-100">
-                  {f.icon}
-                </div>
-                <h3 className="nt-display font-bold text-slate-800 text-lg mb-1.5">{f.title}</h3>
+              <div key={f.title} ref={addRef} className="ts-reveal ts-feat-card p-7 rounded-2xl cursor-default"
+                style={{ transitionDelay: `${i * 70}ms` }}>
+                <div className="ts-feat-icon w-12 h-12 rounded-xl flex items-center justify-center mb-5">{f.icon}</div>
+                <h3 className="ts-display font-bold text-slate-900 text-[1.2rem] mb-2">{f.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{f.desc}</p>
               </div>
             ))}
@@ -208,61 +158,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FEATURED TREKS ── */}
-      <section id="treks" className="py-20" style={{ background: 'linear-gradient(180deg, #f8fafc 0%, #f0fdf4 100%)' }}>
+      {/* ══ FEATURED TREKS ══ */}
+      <section id="treks" className="py-20" style={{ background: 'linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 55%, #f0f9ff 100%)' }}>
         <div className="max-w-6xl mx-auto px-6">
-          <div ref={addRef} className="nt-reveal flex flex-wrap items-end justify-between gap-4 mb-10">
+          <div ref={addRef} className="ts-reveal flex flex-wrap items-end justify-between gap-5 mb-12">
             <div>
-              <p className="text-green-700 text-[11px] font-semibold tracking-[3px] uppercase mb-1.5">Handpicked Routes</p>
-              <h2
-                className="nt-display text-slate-900"
-                style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 700 }}
-              >
+              <p className="ts-eyebrow mb-2">Handpicked Routes</p>
+              <div className="ts-divider mb-4" />
+              <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
                 Featured <em>Treks</em>
               </h2>
             </div>
-            <a href="/packages" className="flex items-center gap-1.5 text-green-700 font-semibold text-sm hover:gap-3 transition-all duration-300">
+            <a href="/packages" className="inline-flex items-center gap-2 text-sky-600 font-semibold text-sm hover:gap-4 transition-all duration-300">
               View all treks <BsArrowRight />
             </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {treks.map((t, i) => (
-              <div
-                key={t.title}
-                ref={addRef}
-                className="nt-reveal nt-trek-card bg-white rounded-2xl overflow-hidden shadow border border-slate-100"
-                style={{ transitionDelay: `${i * 90}ms` }}
-              >
-                <div className="relative overflow-hidden" style={{ height: '200px' }}>
-                  <img src={t.img} alt={t.title} className="nt-trek-img w-full h-full object-cover" />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.45) 100%)' }} />
-                  <span className="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
-                    {t.badge}
-                  </span>
-                  <span className="absolute top-3 right-3 bg-black/50 backdrop-blur text-white text-[11px] px-2.5 py-1 rounded-full">
-                    {t.duration}
-                  </span>
+              <div key={t.title} ref={addRef} className="ts-reveal ts-card bg-white rounded-2xl overflow-hidden"
+                style={{ transitionDelay: `${i * 90}ms` }}>
+                <div className="relative overflow-hidden" style={{ height: '210px' }}>
+                  <img src={t.img} alt={t.title} className="ts-card-img w-full h-full object-cover" loading="lazy" />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, transparent 35%, rgba(12,26,58,0.58) 100%)' }} />
+                  <span className={`absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full ${t.badgeCls}`}>{t.badge}</span>
+                  <span className="absolute top-3 right-3 bg-black/40 backdrop-blur-sm text-white text-[11px] px-2.5 py-1 rounded-full font-medium">{t.duration}</span>
                 </div>
-
                 <div className="p-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="nt-display flex-1 font-bold text-slate-900 text-[1.2rem] leading-snug">{t.title}</h3>
-                    <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full whitespace-nowrap ${t.levelCls}`}>
-                      {t.level}
-                    </span>
+                  <div className="flex items-start gap-2 mb-2">
+                    <h3 className="ts-display flex-1 font-bold text-slate-900 text-[1.15rem] leading-snug">{t.title}</h3>
+                    <span className={`flex-shrink-0 text-[10px] font-semibold px-2.5 py-1 rounded-full border ${t.levelCls}`}>{t.level}</span>
                   </div>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4">{t.desc}</p>
-                  <div className="flex items-center justify-between pt-3.5 border-t border-slate-100">
+                  <p className="text-slate-500 text-sm leading-relaxed mb-5">{t.desc}</p>
+                  <div className="flex items-center justify-between pt-4 border-t border-sky-50">
                     <div>
-                      <p className="text-[11px] text-slate-400">From</p>
-                      <p className="nt-display text-green-700 font-bold text-lg">{t.price}</p>
+                      <p className="text-[10px] text-slate-400 mb-0.5">From</p>
+                      <p className="ts-display text-sky-700 font-bold text-[1.25rem] leading-none">{t.price}</p>
                     </div>
-                    <a
-                      href="/packages"
-                      className="nt-btn-p flex items-center gap-1.5 bg-green-700 text-white text-xs font-semibold px-4 py-2 rounded-xl"
-                    >
-                      Book Now <BsArrowRight size={11} />
+                    <a href="/packages" className="ts-btn-p inline-flex items-center gap-1.5 text-white text-xs font-semibold px-4 py-2.5 rounded-xl">
+                      Book Now <BsArrowRight size={12} />
                     </a>
                   </div>
                 </div>
@@ -272,40 +206,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section className="py-20" style={{ background: '#052e16' }}>
-        <div className="max-w-6xl mx-auto px-6">
-          <div ref={addRef} className="nt-reveal text-center mb-12">
-            <p className="text-green-400 text-[11px] font-semibold tracking-[3px] uppercase mb-3">Trekker Stories</p>
-            <h2
-              className="nt-display text-white"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.2rem)', fontWeight: 700 }}
-            >
+      {/* ══ TESTIMONIALS ══ */}
+      <section className="py-20 relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0c1a3a 0%, #0c4a6e 50%, #0c1a3a 100%)' }}>
+        <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none opacity-10"
+          style={{ background: 'radial-gradient(circle, #38bdf8, transparent 65%)', transform: 'translate(30%,-30%)', filter: 'blur(30px)' }} />
+        <div className="ts-noise absolute inset-0 pointer-events-none" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
+          <div ref={addRef} className="ts-reveal text-center mb-12">
+            <p className="ts-eyebrow text-cyan-400 mb-3">Trekker Stories</p>
+            <div className="ts-divider mx-auto mb-5" style={{ background: 'linear-gradient(90deg,#38bdf8,#06b6d4)' }} />
+            <h2 className="ts-display text-white" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
               Voices from the <em>Trail</em>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {reviews.map((r, i) => (
-              <div
-                key={r.name}
-                ref={addRef}
-                className="nt-reveal nt-review-card p-6 rounded-2xl"
-                style={{ background: 'rgba(255,255,255,0.05)', transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="flex gap-0.5 mb-3">
-                  {Array.from({ length: r.stars }).map((_, j) => (
-                    <FaStar key={j} size={12} className="text-amber-400" />
-                  ))}
+              <div key={r.name} ref={addRef} className="ts-reveal ts-review-card p-7 rounded-2xl"
+                style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className="flex gap-0.5 mb-4">
+                  {Array.from({ length: r.stars }).map((_, j) => <FaStar key={j} size={12} className="text-amber-400" />)}
                 </div>
-                <p className="nt-display text-white/85 text-[0.95rem] italic leading-relaxed mb-5">"{r.text}"</p>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-full bg-green-900 text-green-300 flex items-center justify-center font-semibold text-sm">
+                <FaQuoteLeft className="text-cyan-700 text-lg mb-3" />
+                <p className="ts-display text-white/80 italic leading-relaxed mb-6" style={{ fontSize: '1rem' }}>"{r.text}"</p>
+                <div className="flex items-center gap-3 pt-4 border-t border-sky-800/30">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0"
+                    style={{ background: 'rgba(14,165,233,0.2)', border: '1px solid rgba(56,189,248,0.3)', color: '#7dd3fc' }}>
                     {r.initial}
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm">{r.name}</p>
-                    <p className="text-green-400 text-xs">{r.country}</p>
+                    <p className="text-white font-semibold text-sm leading-none">{r.name}</p>
+                    <p className="text-sky-400 text-xs mt-0.5">{r.country}</p>
                   </div>
                 </div>
               </div>
@@ -314,43 +247,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section
-        className="relative py-20 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #14532d 0%, #052e16 60%, #0f3d22 100%)' }}
-      >
-        <div
-          className="absolute top-0 right-0 w-72 h-72 pointer-events-none opacity-10"
-          style={{ background: 'radial-gradient(circle, #4ade80, transparent 70%)', transform: 'translate(25%,-25%)' }}
-        />
-        <div ref={addRef} className="nt-reveal relative z-10 max-w-xl mx-auto text-center px-6">
-          <p className="text-green-400 text-[11px] font-semibold tracking-[3px] uppercase mb-4">Start Your Journey</p>
-          <h2
-            className="nt-display text-white leading-tight mb-4"
-            style={{ fontSize: 'clamp(1.7rem, 3.5vw, 2.6rem)', fontWeight: 700 }}
-          >
-            Your next great <em>adventure</em> begins here.
+      {/* ══ CTA ══ */}
+      <section className="relative py-24 overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0c4a6e 100%)' }}>
+        <div className="absolute inset-0 pointer-events-none" style={{
+          backgroundImage: `radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 60%), radial-gradient(ellipse at 20% 50%, rgba(6,182,212,0.15) 0%, transparent 60%)`
+        }} />
+        <div className="ts-noise absolute inset-0 pointer-events-none" />
+        {/* Decorative glyph */}
+        <div className="absolute right-10 top-1/2 -translate-y-1/2 text-white/5 pointer-events-none select-none hidden lg:block ts-display"
+          style={{ fontSize: '16rem', fontWeight: 700, lineHeight: 1 }}>✦</div>
+
+        <div ref={addRef} className="ts-reveal relative z-10 max-w-2xl mx-auto text-center px-6">
+          <p className="ts-eyebrow text-sky-100 mb-4">Start Your Journey</p>
+          <h2 className="ts-display text-white leading-tight mb-5"
+            style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', fontWeight: 700 }}>
+            Your next great <em>adventure</em><br />begins here.
           </h2>
-          <p className="text-green-200/75 text-sm leading-relaxed mb-8">
-            Let's craft the perfect Himalayan experience together. Expert planning, every step of the way.
+          <p className="text-sky-100/75 text-sm leading-loose mb-9 max-w-md mx-auto">
+            Let's craft the perfect Himalayan experience together — expert planning, flawless logistics, unforgettable memories.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a
-              href="/packages"
-              className="flex items-center gap-2 bg-white text-green-900 font-bold px-6 py-2.5 rounded-full text-sm shadow-xl hover:bg-green-50 transition-all hover:scale-105 duration-300"
-            >
-              <GiHiking size={16} /> Browse Packages
+            <a href="/packages"
+              className="inline-flex items-center gap-2 bg-white text-sky-800 font-bold px-8 py-3.5 rounded-full text-sm shadow-2xl hover:bg-sky-50 transition-all hover:scale-105 duration-300">
+              <GiHiking size={17} /> Browse Packages
             </a>
-            <a
-              href="/contact"
-              className="nt-btn-s flex items-center gap-2 text-white font-medium px-6 py-2.5 rounded-full text-sm"
-              style={{ border: '1.5px solid rgba(255,255,255,0.28)' }}
-            >
-              Contact Us
+            <a href="/contact" className="ts-btn-ghost inline-flex items-center gap-2 text-white font-medium px-8 py-3.5 rounded-full text-sm">
+              Contact Us <BsArrowUpRight size={13} />
             </a>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

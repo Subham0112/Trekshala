@@ -1,301 +1,243 @@
 // src/pages/About.jsx
 import React, { useEffect, useRef } from 'react';
-import { FaLeaf, FaFire, FaQuoteLeft } from 'react-icons/fa';
+import { FaLeaf, FaFire, FaQuoteLeft, FaStar } from 'react-icons/fa';
 import { GiMountainRoad, GiHiking, GiBackpack, GiCompass } from 'react-icons/gi';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import { BsArrowRight } from 'react-icons/bs';
-
-const FONTS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
-`;
-
-const STYLES = `
-  .nt-font-display { font-family: 'Playfair Display', Georgia, serif; }
-  .nt-font-body { font-family: 'DM Sans', system-ui, sans-serif; }
-
-  .nt-hero-text {
-    background: linear-gradient(135deg, #d4f5a0 0%, #a7f3d0 40%, #6ee7b7 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .nt-scroll-reveal {
-    opacity: 0;
-    transform: translateY(36px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .nt-scroll-reveal.visible { opacity: 1; transform: translateY(0); }
-
-  .nt-slide-left {
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .nt-slide-left.visible { opacity: 1; transform: translateX(0); }
-
-  .nt-slide-right {
-    opacity: 0;
-    transform: translateX(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .nt-slide-right.visible { opacity: 1; transform: translateX(0); }
-
-  .nt-milestone-card {
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .nt-milestone-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #15803d, #4ade80);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.35s ease;
-  }
-  .nt-milestone-card:hover { transform: translateY(-8px); box-shadow: 0 24px 48px rgba(0,0,0,0.12); }
-  .nt-milestone-card:hover::after { transform: scaleX(1); }
-
-  .nt-team-card {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-  .nt-team-card:hover { transform: translateY(-10px); box-shadow: 0 32px 56px rgba(0,0,0,0.15); }
-  .nt-team-card:hover .nt-team-img { transform: scale(1.05); }
-  .nt-team-img { transition: transform 0.5s ease; }
-
-  .nt-gallery-item {
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    overflow: hidden;
-    border-radius: 20px;
-  }
-  .nt-gallery-item:hover { transform: scale(1.02); box-shadow: 0 24px 48px rgba(0,0,0,0.2); }
-  .nt-gallery-item:hover img { transform: scale(1.08); }
-  .nt-gallery-item img { transition: transform 0.6s ease; }
-
-  .nt-value-card {
-    transition: all 0.35s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .nt-value-card:hover { transform: translateY(-6px); }
-  .nt-value-card:hover .nt-value-icon { background: linear-gradient(135deg, #15803d, #166534); color: white; }
-  .nt-value-icon { transition: all 0.35s ease; }
-
-  .nt-btn-primary {
-    background: linear-gradient(135deg, #15803d, #166534);
-    transition: all 0.3s ease;
-  }
-  .nt-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(21,128,61,0.45); }
-
-  .nt-noise-overlay {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-  }
-`;
+import '../assets/css/theme.css';
 
 export default function About() {
   const revealRefs = useRef([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      }),
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
       { threshold: 0.1 }
     );
     revealRefs.current.forEach(el => el && observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  const addRef = (el) => {
+  const addRef = el => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
 
   const milestones = [
-    { year: '2010', title: 'Founded', desc: "Dorje Sherpa's vision of authentic Himalayan adventures begins.", img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80' },
-    { year: '2015', title: "First Int'l Group", desc: 'Successfully guided our first international group to Everest Base Camp.', img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80' },
-    { year: '2018', title: 'Sustainability', desc: 'Formalized our eco-friendly pledge and community reinvestment program.', img: 'https://images.unsplash.com/photo-1573153098012-67bdee4c62f1?auto=format&fit=crop&w=400&q=80' },
-    { year: '2023', title: '1000th Trekker', desc: 'Celebrated a milestone — 1,000 lives transformed by the mountains.', img: 'src/assets/img/about1.avif' },
+    { year: '2010', title: 'Founded',         desc: "Dorje Sherpa's vision of authentic Himalayan adventures takes shape.",           img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80' },
+    { year: '2015', title: "Int'l Debut",     desc: 'Guided our first international group all the way to Everest Base Camp.',         img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80' },
+    { year: '2018', title: 'Sustainability',  desc: 'Formalised our eco-pledge and launched a community reinvestment fund.',          img: 'https://images.unsplash.com/photo-1573153098012-67bdee4c62f1?auto=format&fit=crop&w=400&q=80' },
+    { year: '2023', title: '1,000th Trekker', desc: 'Celebrated the milestone of 1,000 lives transformed by the mountains.',          img: 'src/assets/img/about1.avif' },
   ];
 
   const team = [
-    { name: 'Dorje Sherpa', role: 'Founder & Lead Guide', desc: '20+ years of high-altitude expertise and certified mountain guide.', quote: 'The mountains teach us humility and strength.', img: null, icon: <GiHiking className="text-4xl text-green-600" />, initials: 'DS' },
-    { name: 'Pema Lama', role: 'Operations Manager', desc: 'Ensures every detail of your trek is perfectly planned and executed.', quote: 'Planning your adventure is my adventure!', img: 'https://images.unsplash.com/photo-1619895862022-09114b41f16f?auto=format&fit=crop&w=500&q=80', icon: <GiCompass className="text-4xl text-green-600" />, initials: 'PL' },
-    { name: 'Rinzin Gurung', role: 'Cultural Guide', desc: "Shares Nepal's rich heritage — from ancient monasteries to living traditions.", quote: "Every trail tells a story — I'm here to share it.", img: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=500&q=80', icon: <GiBackpack className="text-4xl text-green-600" />, initials: 'RG' },
+    { name: 'Dorje Sherpa',  role: 'Founder & Lead Guide',  desc: '20+ years of certified high-altitude expertise across all major Himalayan routes.', quote: 'The mountains teach us humility and strength.', img: null, initials: 'DS', icon: <GiHiking  size={28} />, color: '#0ea5e9' },
+    { name: 'Pema Lama',     role: 'Operations Manager',    desc: 'Ensures every logistic detail is seamlessly planned before you leave home.',          quote: 'Planning your adventure is my adventure!',  img: 'https://images.unsplash.com/photo-1619895862022-09114b41f16f?auto=format&fit=crop&w=500&q=80', initials: 'PL', icon: <GiCompass size={28} />, color: '#06b6d4' },
+    { name: 'Rinzin Gurung', role: 'Cultural Guide',        desc: "Shares Nepal's living heritage — from ancient monasteries to traditional festivals.",  quote: "Every trail tells a story — I'm here to share it.", img: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=500&q=80', initials: 'RG', icon: <GiBackpack size={28} />, color: '#0284c7' },
   ];
 
   const gallery = [
-    { caption: 'Sunrise at Everest Base Camp', img: 'src/assets/img/everest.jpg' },
-    { caption: 'Annapurna Circuit', img: 'src/assets/img/annapurna.jpg' },
-    { caption: 'Langtang Valley Culture', img: 'src/assets/img/langtang.webp' },
+    { caption: 'Sunrise at Everest Base Camp', img: 'src/assets/img/everest.jpg'   },
+    { caption: 'Annapurna Circuit',            img: 'src/assets/img/annapurna.jpg' },
+    { caption: 'Langtang Valley Culture',      img: 'src/assets/img/langtang.webp' },
   ];
 
   const values = [
-    { title: 'Authenticity', desc: 'Real Nepal through local eyes — not a packaged tourist experience.', icon: <GiMountainRoad className="h-7 w-7" /> },
-    { title: 'Safety', desc: 'Top-tier gear, emergency protocols, and certified guides at every step.', icon: <HiOutlineShieldCheck className="h-7 w-7" /> },
-    { title: 'Sustainability', desc: 'Leave no trace, support local communities, protect the peaks.', icon: <FaLeaf className="h-7 w-7" /> },
-    { title: 'Passion', desc: 'We don\'t just guide treks — we live and breathe the mountains.', icon: <FaFire className="h-7 w-7" /> },
+    { title: 'Authenticity',  desc: 'Real Nepal through local eyes — never packaged, always lived.',                  icon: <GiMountainRoad className="w-6 h-6" />, color: '#0ea5e9' },
+    { title: 'Safety',        desc: 'Top-tier gear, certified guides, and emergency protocols at every step.',         icon: <HiOutlineShieldCheck className="w-6 h-6" />, color: '#0284c7' },
+    { title: 'Sustainability', desc: 'Leave no trace, support local communities, and protect these sacred peaks.',      icon: <FaLeaf className="w-5 h-5" />, color: '#06b6d4' },
+    { title: 'Passion',       desc: "We don't just guide treks — we live and breathe the mountains every single day.", icon: <FaFire className="w-5 h-5" />, color: '#0369a1' },
   ];
 
   return (
-    <>
-      <style>{FONTS}{STYLES}</style>
+    <div className="ts-page overflow-x-hidden">
 
-      {/* ── HERO ── */}
-      <header
-        className="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden nt-font-body"
-        style={{ backgroundImage: `url('src/assets/img/about.avif')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-      >
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.65) 60%, rgba(5,46,22,0.88) 100%)' }} />
-        <div className="nt-noise-overlay absolute inset-0 pointer-events-none" />
+      {/* ══ HERO ══ */}
+      <header className="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden"
+        style={{ backgroundImage: `url('src/assets/img/about.avif')`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
+        <div className="absolute inset-0"
+          style={{ background: 'linear-gradient(180deg, rgba(12,26,58,0.30) 0%, rgba(14,165,233,0.20) 50%, rgba(12,26,58,0.90) 100%)' }} />
+        {/* Cyan radial glow */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse, rgba(6,182,212,0.16), transparent 60%)', filter: 'blur(50px)' }} />
+        <div className="ts-noise absolute inset-0 pointer-events-none" />
 
-        <div className="relative z-10 px-6 max-w-4xl mx-auto">
-          <p className="text-green-400 text-sm font-semibold tracking-widest uppercase mb-4">About Nepal Treks</p>
-          <h1 className="nt-font-display nt-hero-text" style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)', fontWeight: 900, lineHeight: 1.05 }}>
+        <div className="relative z-10 px-6 max-w-3xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-5">
+            <div className="h-px w-10 bg-sky-400/60" />
+            <p className="ts-eyebrow text-sky-300">About Nepal Treks</p>
+            <div className="h-px w-10 bg-sky-400/60" />
+          </div>
+
+          <h1 className="ts-display ts-hero-text ts-anim-2"
+            style={{ fontSize: 'clamp(3rem, 9vw, 6rem)', fontWeight: 700, lineHeight: 1.06 }}>
             Our <em>Story</em>
           </h1>
-          <div className="flex items-center gap-4 justify-center my-6">
-            <div className="flex-1 max-w-24 h-px bg-green-500/40" />
-            <p className="text-slate-200 text-lg font-light">Our Journey · Our Passion · Our Promise</p>
-            <div className="flex-1 max-w-24 h-px bg-green-500/40" />
+
+          <p className="ts-anim-3 text-slate-200/70 mt-4 text-base leading-relaxed max-w-md mx-auto">
+            Our Journey · Our Passion · Our Promise
+          </p>
+
+          <div className="ts-anim-4 mt-8 flex flex-wrap gap-3 justify-center">
+            <a href="#mission"
+              className="ts-btn-p inline-flex items-center gap-2 text-white font-semibold px-7 py-3.5 rounded-full text-sm shadow-xl">
+              <GiMountainRoad size={17} /> Discover Our Mission
+            </a>
           </div>
-          <a
-            href="#mission"
-            className="mt-6 inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-lg"
-          >
-            <GiMountainRoad className="text-xl" />
-            Discover Our Mission
-          </a>
+        </div>
+
+        {/* Decorative floating card anchored to bottom */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 z-20 hidden md:flex items-center gap-6 px-8 py-4 rounded-2xl ts-float-badge">
+          {[['1,000+','Trekkers'],['15+','Routes'],['14','Years'],['4.9★','Rating']].map(([v,l]) => (
+            <div key={l} className="text-center px-4 border-r border-sky-100 last:border-0">
+              <p className="ts-display text-sky-700 font-bold text-xl leading-none">{v}</p>
+              <p className="text-slate-500 text-xs mt-0.5">{l}</p>
+            </div>
+          ))}
         </div>
       </header>
 
-      {/* ── MISSION ── */}
-      <section id="mission" className="py-24 lg:py-32 bg-white nt-font-body">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div ref={addRef} className="nt-slide-left order-2 lg:order-1">
-            <p className="text-green-700 text-sm font-semibold tracking-widest uppercase mb-4">Who We Are</p>
-            <h2 className="nt-font-display text-slate-900 mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, lineHeight: 1.2 }}>
-              Our <em>Mission</em>
+      {/* Extra spacer so the floating card doesn't overlap the next section on desktop */}
+      <div className="hidden md:block h-14" />
+
+      {/* ══ MISSION ── two-column, elegant ══ */}
+      <section id="mission" className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+          <div ref={addRef} className="ts-reveal-left order-2 lg:order-1">
+            <p className="ts-eyebrow mb-3">Who We Are</p>
+            <div className="ts-divider mb-5" />
+            <h2 className="ts-display text-slate-900 mb-6"
+              style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)', fontWeight: 700, lineHeight: 1.18 }}>
+              Our <em className="ts-accent-text">Mission</em>
             </h2>
-            <div className="w-14 h-0.5 bg-gradient-to-r from-amber-400 to-yellow-300 mb-8 rounded-full" />
-            <p className="text-slate-600 text-lg leading-relaxed mb-5">
+
+            <p className="text-slate-600 text-base leading-loose mb-4">
               We believe trekking is more than just a walk — it's a journey into the heart of nature, culture, and oneself.
             </p>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Our mission is to provide <strong className="text-green-800">authentic, safe, and sustainable</strong> trekking experiences that forge a lasting connection between our guests and Nepal.
+            <p className="text-slate-600 text-base leading-loose mb-7">
+              Our mission is to provide <strong className="text-sky-700 font-semibold">authentic, safe, and sustainable</strong> trekking experiences that forge a lasting bond between our guests and Nepal.
             </p>
-            <div className="flex items-start gap-4 p-5 bg-green-50 rounded-2xl border border-green-100">
-              <FaQuoteLeft className="text-green-300 text-3xl flex-shrink-0 mt-1" />
-              <p className="text-green-900 italic font-medium leading-relaxed">
+
+            {/* Quote */}
+            <div className="ts-quote-block flex items-start gap-4 p-5 rounded-2xl">
+              <FaQuoteLeft className="text-sky-300 text-2xl flex-shrink-0 mt-1" />
+              <p className="ts-display text-sky-900 italic text-[1rem] leading-relaxed">
                 "We don't just show you Nepal — we help you feel it, breathe it, and carry it home in your heart."
               </p>
             </div>
           </div>
 
-          <div ref={addRef} className="nt-slide-right order-1 lg:order-2 relative">
-            <img
-              src="src/assets/img/about1.avif"
-              alt="Trekking in Himalayas"
-              className="rounded-3xl shadow-2xl w-full object-cover"
-              style={{ aspectRatio: '4/3' }}
-              loading="lazy"
-            />
-            {/* Floating badge */}
-            <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl p-5 flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-green-100 flex items-center justify-center text-green-700 text-2xl">
-                <GiHiking />
-              </div>
-              <div>
-                <p className="font-bold text-slate-900 text-xl">1,000+</p>
-                <p className="text-slate-500 text-sm">Happy Trekkers</p>
-              </div>
+          <div ref={addRef} className="ts-reveal-right order-1 lg:order-2 relative">
+            <img src="src/assets/img/about1.avif" alt="Trekking in Himalayas"
+              className="rounded-3xl shadow-2xl w-full object-cover border border-sky-100"
+              style={{ aspectRatio: '4/3' }} loading="lazy" />
+            {/* Floating stat (mobile version) */}
+            <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3 border border-sky-100 md:hidden">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center text-sky-600 text-xl"
+                style={{ background: 'linear-gradient(135deg,#e0f2fe,#bae6fd)' }}><GiHiking /></div>
+              <div><p className="ts-display font-bold text-slate-900 text-lg leading-none">1,000+</p><p className="text-slate-500 text-xs mt-0.5">Happy Trekkers</p></div>
+            </div>
+            {/* Decorative corner accent */}
+            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-2xl pointer-events-none hidden lg:block"
+              style={{ background: 'linear-gradient(135deg,#bae6fd,#e0f2fe)', opacity: 0.6 }} />
+          </div>
+        </div>
+      </section>
+
+      {/* ══ MILESTONES — horizontal timeline card row ══ */}
+      <section className="py-20" style={{ background: 'linear-gradient(180deg,#f0f9ff 0%,#e0f2fe 100%)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div ref={addRef} className="ts-reveal text-center mb-14">
+            <p className="ts-eyebrow mb-3">Our Journey</p>
+            <div className="ts-divider mx-auto mb-5" />
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+              Key <em className="ts-accent-text">Milestones</em>
+            </h2>
+            <p className="mt-2 text-slate-500 text-sm">Moments that define who we are</p>
+          </div>
+
+          {/* Timeline connector line (desktop) */}
+          <div className="relative">
+            <div className="absolute top-10 left-0 right-0 h-px hidden lg:block pointer-events-none"
+              style={{ background: 'linear-gradient(90deg, transparent, #38bdf8 20%, #06b6d4 80%, transparent)' }} />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {milestones.map((m, i) => (
+                <div key={m.year} ref={addRef}
+                  className="ts-reveal ts-milestone-card rounded-2xl shadow-sm p-6 text-center"
+                  style={{ transitionDelay: `${i * 80}ms` }}>
+                  {/* Year dot on timeline */}
+                  <div className="relative w-20 h-20 mx-auto mb-5">
+                    <img src={m.img} alt={m.year} className="w-full h-full object-cover rounded-full border-4 border-sky-100 shadow-md" loading="lazy" />
+                    {/* Dot ring */}
+                    <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center shadow-md"
+                      style={{ background: 'linear-gradient(135deg,#0ea5e9,#06b6d4)' }}>
+                      <span className="text-white text-xs font-bold">✓</span>
+                    </div>
+                  </div>
+                  <span className="inline-block px-3 py-0.5 rounded-full text-xs font-bold text-sky-700 bg-sky-100 mb-2">{m.year}</span>
+                  <h3 className="ts-display text-slate-800 font-bold text-lg mb-1">{m.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">{m.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── MILESTONES ── */}
-      <section className="py-24 lg:py-32 nt-font-body" style={{ background: 'linear-gradient(180deg, #f8fafc, #f0fdf4)' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div ref={addRef} className="nt-scroll-reveal text-center mb-16">
-            <p className="text-green-700 text-sm font-semibold tracking-widest uppercase mb-3">Our Journey</p>
-            <h2 className="nt-font-display text-slate-900" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700 }}>
-              Key <em>Milestones</em>
+      {/* ══ TEAM ── cards with top-image, quote footer ══ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div ref={addRef} className="ts-reveal text-center mb-14">
+            <p className="ts-eyebrow mb-3">The People</p>
+            <div className="ts-divider mx-auto mb-5" />
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+              Meet Our <em className="ts-accent-text">Team</em>
             </h2>
-            <p className="mt-3 text-slate-500 text-lg">Moments that define who we are</p>
+            <p className="mt-2 text-slate-500 text-sm">The heart and soul of every adventure</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {milestones.map((m, i) => (
-              <div
-                key={m.year}
-                ref={addRef}
-                className="nt-scroll-reveal nt-milestone-card bg-white rounded-2xl shadow-md p-6 text-center"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="relative w-24 h-24 mx-auto mb-5">
-                  <img src={m.img} alt={m.year} className="w-full h-full object-cover rounded-full border-4 border-green-100" loading="lazy" />
-                  <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-green-600 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">✓</span>
-                  </div>
-                </div>
-                <div className="inline-block px-3 py-1 rounded-full text-xs font-bold text-green-700 bg-green-100 mb-3">{m.year}</div>
-                <h3 className="nt-font-display text-slate-800 font-bold text-lg mb-2">{m.title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">{m.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── TEAM ── */}
-      <section className="py-24 lg:py-32 bg-white nt-font-body">
-        <div className="max-w-7xl mx-auto px-6">
-          <div ref={addRef} className="nt-scroll-reveal text-center mb-16">
-            <p className="text-green-700 text-sm font-semibold tracking-widest uppercase mb-3">The People</p>
-            <h2 className="nt-font-display text-slate-900" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700 }}>
-              Meet Our <em>Team</em>
-            </h2>
-            <p className="mt-3 text-slate-500 text-lg">The heart and soul of every adventure</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
             {team.map((member, i) => (
-              <div
-                key={member.name}
-                ref={addRef}
-                className="nt-scroll-reveal nt-team-card bg-white rounded-3xl shadow-lg overflow-hidden border border-slate-100"
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                {/* Card top */}
-                <div className="relative h-52 overflow-hidden" style={{ background: 'linear-gradient(135deg, #052e16, #14532d)' }}>
-                  <div className="nt-noise-overlay absolute inset-0" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    {member.img ? (
-                      <img src={member.img} alt={member.name} className="nt-team-img w-36 h-36 object-cover rounded-full border-4 border-white/20 shadow-xl" loading="lazy" />
-                    ) : (
-                      <div className="w-36 h-36 rounded-full border-4 border-white/20 bg-green-900 flex items-center justify-center shadow-xl">
-                        <span className="text-4xl font-bold text-green-300">{member.initials}</span>
-                      </div>
-                    )}
-                  </div>
+              <div key={member.name} ref={addRef}
+                className="ts-reveal ts-team-card bg-white rounded-2xl overflow-hidden"
+                style={{ transitionDelay: `${i * 100}ms` }}>
+
+                {/* Top colour band — unique gradient per person */}
+                <div className="relative h-52 overflow-hidden flex items-center justify-center"
+                  style={{ background: `linear-gradient(135deg, ${member.color}cc 0%, #0c1a3a 100%)` }}>
+                  {/* Wavy SVG decoration */}
+                  <svg className="absolute bottom-0 left-0 right-0 w-full" viewBox="0 0 400 40" fill="none">
+                    <path d="M0 40 Q100 0 200 20 Q300 40 400 10 L400 40 Z" fill="white" />
+                  </svg>
+                  <div className="ts-noise absolute inset-0 pointer-events-none" />
+
+                  {member.img ? (
+                    <img src={member.img} alt={member.name}
+                      className="ts-team-img w-28 h-28 object-cover rounded-full border-4 border-white/25 shadow-2xl z-10" loading="lazy" />
+                  ) : (
+                    <div className="w-28 h-28 rounded-full border-4 border-white/25 flex items-center justify-center shadow-2xl z-10"
+                      style={{ background: `${member.color}40` }}>
+                      <span className="ts-display text-3xl font-bold text-white">{member.initials}</span>
+                    </div>
+                  )}
                 </div>
 
-                <div className="p-7 text-center">
-                  <h3 className="nt-font-display text-slate-900 font-bold text-xl mb-1">{member.name}</h3>
-                  <p className="text-green-600 font-semibold text-sm mb-3">{member.role}</p>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-5">{member.desc}</p>
+                <div className="px-6 pb-6 pt-2 text-center">
+                  <h3 className="ts-display text-slate-900 font-bold text-xl mb-0.5">{member.name}</h3>
+                  <p className="text-sky-600 font-semibold text-xs tracking-wide uppercase mb-3">{member.role}</p>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4">{member.desc}</p>
 
-                  <div className="flex justify-center mb-5 text-green-600">
+                  {/* Icon badge */}
+                  <div className="inline-flex items-center justify-center w-10 h-10 rounded-xl mb-4"
+                    style={{ background: `${member.color}18`, color: member.color }}>
                     {member.icon}
                   </div>
 
-                  <div className="p-4 rounded-2xl text-sm italic leading-relaxed text-white"
-                    style={{ background: 'linear-gradient(135deg, #15803d, #052e16)' }}>
-                    <FaQuoteLeft className="inline mr-2 text-green-400 text-xs" />
+                  {/* Quote */}
+                  <div className="p-4 rounded-xl text-sm italic text-white leading-relaxed"
+                    style={{ background: `linear-gradient(135deg, ${member.color}, #0c1a3a)` }}>
+                    <FaQuoteLeft className="inline mr-1.5 opacity-60 text-xs" />
                     {member.quote}
                   </div>
                 </div>
@@ -305,61 +247,62 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── GALLERY ── */}
-      <section className="py-24 lg:py-32 nt-font-body" style={{ background: '#f8fafc' }}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div ref={addRef} className="nt-scroll-reveal text-center mb-16">
-            <p className="text-green-700 text-sm font-semibold tracking-widest uppercase mb-3">Visual Stories</p>
-            <h2 className="nt-font-display text-slate-900" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700 }}>
-              Moments from the <em>Trail</em>
+      {/* ══ GALLERY ── masonry-ish three columns ══ */}
+      <section className="py-20" style={{ background: 'linear-gradient(180deg,#f0f9ff,#e0f2fe)' }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div ref={addRef} className="ts-reveal text-center mb-12">
+            <p className="ts-eyebrow mb-3">Visual Stories</p>
+            <div className="ts-divider mx-auto mb-5" />
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+              Moments from the <em className="ts-accent-text">Trail</em>
             </h2>
-            <p className="mt-3 text-slate-500 text-lg">A glimpse into shared adventures</p>
+            <p className="mt-2 text-slate-500 text-sm">A glimpse into shared adventures</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {gallery.map((item, i) => (
-              <div
-                key={item.caption}
-                ref={addRef}
-                className="nt-scroll-reveal nt-gallery-item relative shadow-lg cursor-pointer"
-                style={{ transitionDelay: `${i * 100}ms`, aspectRatio: '4/3' }}
-              >
-                <img src={item.img} alt={item.caption} className="w-full h-full object-cover" loading="lazy" />
-                <div className="absolute inset-0 flex items-end p-6"
-                  style={{ background: 'linear-gradient(0deg, rgba(5,46,22,0.8) 0%, transparent 60%)' }}>
+              <div key={item.caption} ref={addRef}
+                className="ts-reveal ts-gallery-item relative cursor-pointer group"
+                style={{ aspectRatio: i === 1 ? '3/4' : '4/3', transitionDelay: `${i * 90}ms` }}>
+                <img src={item.img} alt={item.caption} className="ts-gallery-img w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 flex items-end p-5"
+                  style={{ background: 'linear-gradient(0deg, rgba(12,26,58,0.78) 0%, transparent 60%)' }}>
                   <div>
-                    <p className="text-white font-semibold text-lg">{item.caption}</p>
-                    <p className="text-green-300 text-sm mt-1 flex items-center gap-1.5"><BsArrowRight /> View Gallery</p>
+                    <p className="text-white font-semibold text-base leading-snug">{item.caption}</p>
+                    <p className="text-sky-300 text-xs mt-1 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <BsArrowRight size={11} /> View Gallery
+                    </p>
                   </div>
                 </div>
+                {/* Hover shimmer */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ background: 'linear-gradient(135deg, rgba(14,165,233,0.1) 0%, transparent 60%)' }} />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── VALUES ── */}
-      <section className="py-24 lg:py-32 bg-white nt-font-body">
-        <div className="max-w-7xl mx-auto px-6">
-          <div ref={addRef} className="nt-scroll-reveal text-center mb-16">
-            <p className="text-green-700 text-sm font-semibold tracking-widest uppercase mb-3">What We Stand For</p>
-            <h2 className="nt-font-display text-slate-900" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700 }}>
-              Our Core <em>Values</em>
+      {/* ══ VALUES ── icon grid ══ */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div ref={addRef} className="ts-reveal text-center mb-12">
+            <p className="ts-eyebrow mb-3">What We Stand For</p>
+            <div className="ts-divider mx-auto mb-5" />
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+              Our Core <em className="ts-accent-text">Values</em>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {values.map((v, i) => (
-              <div
-                key={v.title}
-                ref={addRef}
-                className="nt-scroll-reveal nt-value-card p-8 rounded-2xl border border-slate-100 text-center"
-                style={{ transitionDelay: `${i * 80}ms`, background: 'linear-gradient(160deg, #f0fdf4, #ffffff)' }}
-              >
-                <div className="nt-value-icon inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-green-100 text-green-700 mx-auto mb-5">
+              <div key={v.title} ref={addRef}
+                className="ts-reveal ts-value-card p-7 rounded-2xl text-center cursor-default"
+                style={{ transitionDelay: `${i * 80}ms` }}>
+                <div className="ts-value-icon inline-flex items-center justify-center h-14 w-14 rounded-2xl mx-auto mb-5">
                   {v.icon}
                 </div>
-                <h3 className="nt-font-display text-slate-800 font-bold text-xl mb-3">{v.title}</h3>
+                <h3 className="ts-display text-slate-800 font-bold text-xl mb-2">{v.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
@@ -367,31 +310,37 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="relative py-24 md:py-32 overflow-hidden nt-font-body"
-        style={{ background: 'linear-gradient(135deg, #14532d 0%, #052e16 50%, #0f3d22 100%)' }}>
-        <div className="nt-noise-overlay absolute inset-0 pointer-events-none" />
-        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full opacity-10 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #4ade80, transparent 70%)' }} />
+      {/* ══ CTA ══ */}
+      <section className="relative py-20 overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #0ea5e9 0%, #0284c7 40%, #0c4a6e 100%)' }}>
+        <div className="ts-noise absolute inset-0 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-80 h-80 pointer-events-none opacity-15"
+          style={{ background: 'radial-gradient(circle, #bae6fd, transparent 65%)', transform: 'translate(25%,-25%)' }} />
+        <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none opacity-10"
+          style={{ background: 'radial-gradient(circle, #38bdf8, transparent 65%)', transform: 'translate(-25%,25%)' }} />
 
-        <div ref={addRef} className="nt-scroll-reveal relative z-10 max-w-3xl mx-auto text-center px-6">
-          <h2 className="nt-font-display text-white mb-5" style={{ fontSize: 'clamp(2.2rem, 5vw, 3.5rem)', fontWeight: 700 }}>
+        <div ref={addRef} className="ts-reveal relative z-10 max-w-xl mx-auto text-center px-6">
+          <p className="ts-eyebrow text-sky-100 mb-4">Ready for Your Adventure?</p>
+          <h2 className="ts-display text-white leading-tight mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', fontWeight: 700 }}>
             Ready for your <em>adventure?</em>
           </h2>
-          <p className="text-green-200 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sky-100/70 text-sm leading-loose mb-8 max-w-md mx-auto">
             Let's find the perfect trek. Expert planning, every step of the way.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a href="/packages" className="inline-flex items-center gap-2.5 bg-white text-green-900 px-8 py-4 rounded-full font-semibold hover:bg-green-50 transition-all duration-300 hover:scale-105 shadow-xl">
-              <GiHiking className="text-lg" />
-              View Trekking Packages
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="/packages"
+              className="flex items-center gap-2 bg-white text-sky-800 font-bold px-7 py-3.5 rounded-full text-sm shadow-xl hover:bg-sky-50 transition-all hover:scale-105 duration-300">
+              <GiHiking size={17} /> View Trekking Packages
             </a>
-            <a href="/contact" className="inline-flex items-center gap-2.5 border border-white/30 text-white px-8 py-4 rounded-full font-medium hover:bg-white/10 transition-all duration-300">
+            <a href="/contact"
+              className="ts-btn-ghost flex items-center gap-2 text-white font-medium px-7 py-3.5 rounded-full text-sm">
               Contact Us
             </a>
           </div>
         </div>
       </section>
-    </>
+
+    </div>
   );
 }
