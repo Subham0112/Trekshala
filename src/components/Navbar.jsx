@@ -126,8 +126,8 @@ export default function Navbar() {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Packages', path: '/packages' },
-    { name: 'Gallery', path: '/gallery' },
+    { name: 'Treks', path: '/treks' },
+    // { name: 'Gallery', path: '/gallery' },
   ];
 
   const isActive = (path) =>

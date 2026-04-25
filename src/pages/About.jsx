@@ -55,7 +55,7 @@ export default function About() {
       <header className="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden"
         style={{ backgroundImage: `url('src/assets/img/about.avif')`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(12,26,58,0.30) 0%, rgba(14,165,233,0.20) 50%, rgba(12,26,58,0.90) 100%)' }} />
+          style={{ background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.9) 100%)' }} />
         {/* Cyan radial glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
           style={{ background: 'radial-gradient(ellipse, rgba(6,182,212,0.16), transparent 60%)', filter: 'blur(50px)' }} />

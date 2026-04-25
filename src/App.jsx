@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
-import Packages from './pages/Packages';
+import Treks from './pages/Treks';
 import Contact from './pages/Contact';
 // import Gallery from './pages/Gallery';
 
@@ -37,7 +37,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='about' element={<About />} />
-          <Route path='/packages' element={<Packages />} />
+          <Route path='/treks' element={<Treks />} />
           {/* <Route path='/gallery' element={<Gallery />} /> */}
           <Route path='/contact' element={<Contact />} />
           
