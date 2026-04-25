@@ -1,53 +1,177 @@
-# Trekking Web App
+# Trekking Nepal: Himalayan Adventures Web App
 
-A modern, responsive web application built with React and Vite for showcasing and booking trekking adventures in Nepal. This project provides an interactive platform for users to explore popular trekking routes, view galleries, learn about the company, and get in touch for inquiries.
+![Trekking Nepal](https://img.shields.io/badge/React-19.2.0-blue) ![Vite](https://img.shields.io/badge/Vite-7.3.1-purple) ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.2.1-cyan)
 
-## 🌟 Features
+A stunning, modern web application built with React and Vite, designed to inspire and guide adventurers through the breathtaking trekking routes of Nepal. Discover iconic trails like Everest Base Camp, Annapurna Circuit, and Langtang Valley, with detailed itineraries, cultural insights, and booking information.
 
-- **Home Page**: Engaging landing page with hero section, featured treks, and key highlights
-- **About Page**: Information about the trekking company and its mission
-- **Packages Page**: Detailed listing of available trekking packages with filtering and pagination
-- **Contact Page**: Contact form and information for inquiries
-- **Gallery Page**: Visual showcase of trekking experiences (currently commented out in routing)
-- **Responsive Design**: Mobile-first approach with Tailwind CSS for seamless experience across devices
-- **Smooth Animations**: Powered by Motion library for enhanced user interactions
-- **Modern UI**: Clean, professional design with custom fonts and gradients
+## 🌄 About the Website
 
-## 🛠️ Tech Stack
+Trekking Nepal is your gateway to the Himalayas. Whether you're a seasoned mountaineer or a first-time trekker, our platform offers comprehensive information on Nepal's most spectacular routes. From the world's highest peaks to serene valleys, we provide authentic experiences guided by local experts who live and breathe the mountains.
 
-- **Frontend Framework**: React 19
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS 4
-- **Routing**: React Router DOM
-- **Icons**: Lucide React & React Icons
-- **Animations**: Motion
-- **Pagination**: React Paginate
-- **Linting**: ESLint with React plugins
+Our website features immersive visuals, interactive maps, and expert tips to help you plan your dream trek. Learn about seasonal weather, difficulty levels, cultural highlights, and sustainable practices that ensure your journey respects both the environment and local communities.
+
+## ✨ Key Features
+
+### 🏠 Home Page
+- **Hero Section**: Cinematic hero with gradient overlays and call-to-action buttons
+- **Featured Treks**: Highlighted popular routes like Everest Base Camp, Annapurna Circuit, and Langtang Valley
+- **Seasonal Guide**: Interactive cards for Spring, Summer, Autumn, and Winter trekking seasons with weather details, pros/cons, and best activities
+- **Difficulty Levels**: Easy, Moderate, Challenging, and Extreme trek classifications with detailed descriptions
+- **Trekking Tips**: Essential advice on acclimatization, packing, photography, cultural respect, and permits
+- **FAQs**: Comprehensive answers to common questions about experience requirements, permits, best seasons, fitness levels, and altitude sickness
+- **Why Nepal?**: Statistics and highlights showcasing Nepal's unique trekking heritage
+
+### 🥾 Treks Page
+- **Trek Listings**: Grid view of all available trekking packages with images, locations, durations, and prices
+- **Advanced Filtering**: Filter by difficulty (Moderate, Challenging) or view all treks
+- **Search Functionality**: Real-time search by trek name, location, description, or duration
+- **Sorting Options**: Sort by price (low to high/high to low) or duration (short to long/long to short)
+- **Pagination**: Efficient loading with 6 treks per page and navigation controls
+- **Trek Details Modal**: In-depth information including highlights, inclusions, difficulty, best season, max altitude, and group size
+- **Responsive Cards**: Beautiful card designs with hover effects, badges, and key stats
+
+### 📖 About Page
+- **Company Story**: Milestones from founding in 2010 to celebrating the 1,000th trekker
+- **Team Profiles**: Meet the expert guides and staff, including Dorje Sherpa (Founder), Pema Lama (Operations), and Rinzin Gurung (Cultural Guide)
+- **Photo Gallery**: Stunning images from various treks and cultural sites
+- **Core Values**: Authenticity, Safety, Sustainability, and Passion pillars of the company
+
+### 📞 Contact Page
+- Contact form for inquiries
+- Company information and location details
+
+### 🖼️ Gallery Page
+- Visual showcase of trekking experiences and landscapes
+- Organized photo collections from different routes
+
+### 🎨 Design & UX
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop
+- **Smooth Animations**: Intersection Observer-powered reveal animations for engaging scroll experiences
+- **Modern UI**: Clean typography with custom fonts, gradients, and professional color schemes
+- **Accessibility**: Semantic HTML, keyboard navigation, and screen reader friendly
+- **Performance**: Optimized images, lazy loading, and efficient React rendering
+
+## 🛠️ Technology Stack
+
+- **Frontend Framework**: React 19.2.0 with modern hooks and functional components
+- **Build Tool**: Vite 7.3.1 for lightning-fast development and optimized production builds
+- **Styling**: Tailwind CSS 4.2.1 for utility-first, responsive design
+- **Routing**: React Router DOM 7.13.1 for client-side navigation
+- **Icons**: Lucide React and React Icons for consistent, scalable iconography
+- **Animations**: Motion library for smooth, performant animations
+- **Pagination**: React Paginate for efficient data pagination
+- **Linting**: ESLint with React-specific rules for code quality
+- **Development**: Hot module replacement, fast refresh, and modern ES modules
 
 ## 📁 Project Structure
 
 ```
 trekking_web/
 ├── public/
-│   └── img/                 # Static images
+│   ├── img/
+│   │   ├── img5.avif
+│   │   └── img6.avif
+│   └── vite.svg
 ├── src/
 │   ├── assets/
-│   │   └── img/             # Component-specific images
+│   │   ├── css/
+│   │   │   ├── home.css
+│   │   │   ├── package.css
+│   │   │   └── theme.css
+│   │   └── img/
+│   │       ├── about.avif
+│   │       ├── about1.avif
+│   │       ├── gallery.avif
+│   │       ├── home.avif
+│   │       ├── everest.jpg
+│   │       ├── annapurna.jpg
+│   │       └── langtang.webp
 │   ├── components/
-│   │   ├── Navbar.jsx       # Navigation component
-│   │   └── Footer.jsx       # Footer component
+│   │   ├── Footer.jsx
+│   │   ├── Navbar.jsx
+│   │   └── TrekModal.jsx
 │   ├── data/
-│   │   ├── galleryData.js   # Gallery images data
-│   │   └── treks.js         # Trekking packages data
+│   │   ├── galleryData.js
+│   │   └── treks.js
 │   ├── pages/
-│   │   ├── Home.jsx         # Landing page
-│   │   ├── About.jsx        # About page
-│   │   ├── Packages.jsx     # Trek packages listing
-│   │   ├── Contact.jsx      # Contact page
-│   │   └── Gallery.jsx      # Gallery page (commented out)
-│   ├── App.jsx              # Main app component with routing
-│   ├── main.jsx             # App entry point
-│   └── index.css            # Global styles
+│   │   ├── Home.jsx
+│   │   ├── Treks.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   └── Gallery.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── package.json
+├── vite.config.js
+├── eslint.config.js
+├── index.html
+└── README.md
+```
+
+## 🚀 Installation & Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/trekking-nepal.git
+   cd trekking-nepal
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   The app will be available at `http://localhost:5173`
+
+4. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+5. **Preview the production build**:
+   ```bash
+   npm run preview
+   ```
+
+6. **Lint the code**:
+   ```bash
+   npm run lint
+   ```
+
+## 📊 Data Structure
+
+### Treks Data (`src/data/treks.js`)
+Contains detailed information for each trekking package:
+- Name, location, duration, price
+- Category (moderate/challenging)
+- Featured status
+- Image paths
+- Descriptions
+
+### Gallery Data (`src/data/galleryData.js`)
+Photo collections for the gallery page with captions and image paths.
+
+## 🎯 Usage
+
+- **Navigation**: Use the navbar to explore different sections
+- **Filtering Treks**: On the Treks page, use filters and search to find your ideal route
+- **Trek Details**: Click "Details" on any trek card to view comprehensive information
+- **Responsive**: The site adapts beautifully to any screen size
+
+## 🙏 Acknowledgments
+
+- Images sourced from Unsplash and local assets
+- Icons from React Icons and Lucide React
+- Inspired by the majestic Himalayas and the spirit of adventure
+
+---
+
+**Ready to conquer the peaks?** Start planning your Himalayan journey today! 🏔️
 ├── package.json
 ├── vite.config.js
 ├── eslint.config.js
@@ -112,23 +236,3 @@ The application uses static data files for trekking packages and gallery images:
 - **Color Scheme**: Nature-inspired greens and earth tones
 - **Animations**: Smooth hover effects, scroll reveals, and transitions
 - **Responsive**: Optimized for mobile, tablet, and desktop views
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is private and proprietary.
-
-## 📞 Contact
-
-For inquiries about trekking packages or the website, please visit the Contact page or reach out through the provided contact form.
-
----
-
-Built with ❤️ for adventure seekers exploring the Himalayas.
