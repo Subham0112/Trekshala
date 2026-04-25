@@ -32,9 +32,17 @@ export default function Footer() {
               </div>
 
               <div>
-                <h3 className="text-3xl font-bold tracking-tighter">
-                  Trek<span className="text-emerald-400">Shala</span>
-                </h3>
+                <div style={{
+                  fontSize: '22px',
+                  fontWeight: 800,
+                  letterSpacing: '-0.5px',
+                  background: 'linear-gradient(135deg, #3eecf8, #08dddd, #2ff5f5)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  fontFamily: 'DM Sans, system-ui, sans-serif',
+                  lineHeight: 1.1,
+                }}>TrekShala</div>
                 <p className="text-cyan-300 text-sm tracking-widest font-medium -mt-1">
                   SINCE 2010
                 </p>
