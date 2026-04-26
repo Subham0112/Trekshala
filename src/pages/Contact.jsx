@@ -165,7 +165,7 @@ export default function Contact() {
               <p className="ts-display text-slate-800 font-bold text-lg mb-3">Quick Links</p>
               <div className="flex flex-wrap gap-2">
                 {['Everest Base Camp', 'Annapurna Circuit', 'Langtang Valley', 'Gokyo Lakes'].map(trek => (
-                  <a key={trek} href="/packages"
+                  <a key={trek} href="/treks"
                     className="text-xs px-3 py-1.5 rounded-full border border-sky-200 text-sky-700 bg-sky-50 hover:bg-sky-100 transition-colors font-medium">
                     {trek}
                   </a>
@@ -248,12 +248,13 @@ export default function Contact() {
           <div className="rounded-3xl overflow-hidden border border-sky-100 shadow-lg"
             style={{ boxShadow: '0 8px 40px rgba(14,165,233,0.12)' }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109522.94328700451!2d87.34927577876773!3d26.6307242661531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef65ca2e795c05%3A0xae018d58e323458a!2sBelbari%2056600!5e1!3m2!1sen!2snp!4v1750388510241!5m2!1sen!2snp"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3571.4645050072972!2d87.27194747298309!3d26.47298492784403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef75000a940755%3A0xadeebdaee3e28d40!2sBargachi!5e0!3m2!1sen!2snp!4v1777209555256!5m2!1sen!2snp"
               width="100%" height="420" style={{ border: 0 }} allowFullScreen="" loading="lazy"
               referrerPolicy="no-referrer-when-downgrade" title="Nepal Treks Location" />
           </div>
         </div>
       </section>
+      
 
       {/* ══ SUCCESS MODAL ══ */}
       {showModal && (
