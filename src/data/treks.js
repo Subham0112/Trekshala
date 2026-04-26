@@ -2,7 +2,7 @@
 import langtangImg from '../assets/img/langtang.webp';
 import annapurnaImg from '../assets/img/annapurna.jpg';
 import everestImg from '../assets/img/everest.jpg';
-import gokyoImg from '../assets/img/gokyo-Lake.webp';
+import gokyoImg from '../assets/img/gokyo_Lake.webp';
 import manasluImg from '../assets/img/manaslu.jpeg';
 import poonhillImg from '../assets/img/poonhill.webp';
 
