@@ -5,7 +5,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane, FaCheck } from 'r
 import { GiHiking } from 'react-icons/gi';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { HiOutlineClock } from 'react-icons/hi';
-import heroImg from '../assets/img/contact-hero.avif';
+import heroImg from '../assets/img/contact_hero.avif';
 import '../assets/css/theme.css';
 
 export default function Contact() {
