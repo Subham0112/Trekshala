@@ -1,4 +1,12 @@
 // src/data/treks.js
+import langtangImg from '../assets/img/langtang.webp';
+import annapurnaImg from '../assets/img/annapurna.jpg';
+import everestImg from '../assets/img/everest.jpg';
+import gokyoImg from '../assets/img/gokyo-Lake.webp';
+import manasluImg from '../assets/img/manaslu.jpeg';
+import poonhillImg from '../assets/img/poonhill.webp';
+
+
 export const treks = [
   {
     name: "Everest Base Camp",
@@ -7,7 +15,7 @@ export const treks = [
     duration: 14,
     description:
       "Follow the footsteps of legends to the base of the world's highest peak through Sherpa villages and breathtaking landscapes.",
-    image: "src/assets/img/everest.jpg",
+    image: everestImg,
     featured: true,
     // ── Detail fields ──
     maxAltitude: "5,364 m",
@@ -35,7 +43,7 @@ export const treks = [
     duration: 14,
     description:
       "A classic trek offering diverse landscapes, from lush forests to arid high deserts, with spectacular mountain vistas.",
-    image: "src/assets/img/annapurna.jpg",
+    image: annapurnaImg,
     featured: true,
     maxAltitude: "5,416 m",
     bestSeason: "Oct–Nov & Mar–Apr",
@@ -62,7 +70,7 @@ export const treks = [
     duration: 8,
     description:
       'A peaceful, less-crowded trail with stunning views and rich Tamang culture, often called "the valley of glaciers".',
-    image: "src/assets/img/langtang.webp",
+    image: langtangImg,
     featured: true,
     maxAltitude: "4,984 m",
     bestSeason: "Mar–May & Sep–Dec",
@@ -89,7 +97,7 @@ export const treks = [
     duration: 13,
     description:
       "Discover emerald-green glacial lakes and panoramic views of four 8,000m peaks in this spectacular alternative to EBC.",
-    image: "src/assets/img/gokyo-Lake.webp",
+    image: gokyoImg,
     featured: false,
     maxAltitude: "5,357 m",
     bestSeason: "Mar–May & Sep–Nov",
@@ -116,7 +124,7 @@ export const treks = [
     duration: 16,
     description:
       "A culturally rich trek around the world's eighth highest mountain with fewer crowds and pristine landscapes.",
-    image: "src/assets/img/manaslu.jpeg",
+    image: manasluImg,
     featured: false,
     maxAltitude: "5,160 m",
     bestSeason: "Sep–Nov & Mar–May",
@@ -143,7 +151,7 @@ export const treks = [
     duration: 5,
     description:
       "A short trek perfect for breathtaking sunrise views over the Annapurna range, ideal for those with limited time.",
-    image: "src/assets/img/poonhill.webp",
+    image: poonhillImg,
     featured: false,
     maxAltitude: "3,210 m",
     bestSeason: "Year-round (best Oct–Apr)",

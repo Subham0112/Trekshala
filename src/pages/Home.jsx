@@ -10,6 +10,10 @@ import { GiMountainRoad, GiHiking, GiBackpack, GiCompass, GiSnowflake2 } from 'r
 import { BsArrowRight, BsArrowUpRight, BsInfoCircle } from 'react-icons/bs';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { MdDirectionsWalk, MdNaturePeople } from 'react-icons/md';
+import heroImg from '../assets/img/home.avif';
+import langtangImg from '../assets/img/langtang.webp';
+import annapurnaImg from '../assets/img/annapurna.jpg';
+import everestImg from '../assets/img/everest.jpg';
 import '../assets/css/theme.css';
 
 function FAQItem({ q, a }) {
@@ -52,7 +56,7 @@ export default function Home() {
   // Trek cards — NO highlights, just image + name + quick stats + description + link
   const treks = [
     {
-      img: 'src/assets/img/everest.jpg',
+      img: everestImg,
       region: 'Khumbu Region',
       badge: 'Iconic', badgeCls: 'bg-amber-400 text-slate-900',
       title: 'Everest Base Camp',
@@ -61,7 +65,7 @@ export default function Home() {
       desc: "One of the world's most famous treks — Sherpa villages, high-altitude glaciers, and views of the world's highest peaks.",
     },
     {
-      img: 'src/assets/img/annapurna.jpg',
+      img: annapurnaImg,
       region: 'Annapurna Region',
       badge: 'Most Diverse', badgeCls: 'bg-sky-500 text-white',
       title: 'Annapurna Circuit',
@@ -70,7 +74,7 @@ export default function Home() {
       desc: 'A classic circumnavigation of the Annapurna massif through subtropical forests, arid Tibetan terrain, and spectacular vistas.',
     },
     {
-      img: 'src/assets/img/langtang.webp',
+      img: langtangImg,
       region: 'Langtang Region',
       badge: 'Hidden Gem', badgeCls: 'bg-cyan-500 text-white',
       title: 'Langtang Valley',
@@ -125,7 +129,7 @@ export default function Home() {
       {/* ══ HERO ══ */}
       <header
         className="relative flex flex-col items-center justify-center text-white overflow-hidden"
-        style={{ minHeight: '100vh', backgroundImage: `url('src/assets/img/home.avif')`, backgroundSize: 'cover', backgroundPosition: 'center 30%', paddingTop: '68px' }}
+        style={{ minHeight: '100vh', backgroundImage: `url('${heroImg}')`, backgroundSize: 'cover', backgroundPosition: 'center 30%', paddingTop: '68px' }}
       >
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,rgba(0, 0, 0, 0.2) 0%,rgba(0, 0, 0, 0.1) 30%,rgba(0, 0, 0, 0.49) 72%,rgba(0, 0, 0, 0.82) 100%)' }} />
         <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[600px] h-48 pointer-events-none" style={{ background: 'radial-gradient(ellipse,rgba(56,189,248,0.10),transparent 65%)', filter: 'blur(55px)' }} />

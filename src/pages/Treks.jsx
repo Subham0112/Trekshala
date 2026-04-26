@@ -10,6 +10,7 @@ import { GiHiking, GiMountainRoad } from 'react-icons/gi';
 import { BsSearch, BsXCircle } from 'react-icons/bs';
 import { BsArrowRight } from 'react-icons/bs';
 import '../assets/css/theme.css';
+import heroImg from '../assets/img/image.png';
 import TrekModal from '../components/TrekModal';
 
 const DIFFICULTY = {
@@ -88,7 +89,7 @@ export default function Treks() {
         className="relative flex items-center justify-center text-center text-white overflow-hidden"
         style={{
           minHeight: '100vh',
-          backgroundImage: `url('src/assets/img/image.png')`,
+          backgroundImage: `url('${heroImg}')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           paddingTop: '68px',
