@@ -4,6 +4,11 @@ import { FaLeaf, FaFire, FaQuoteLeft } from 'react-icons/fa';
 import { GiMountainRoad, GiHiking, GiBackpack, GiCompass } from 'react-icons/gi';
 import { HiOutlineShieldCheck } from 'react-icons/hi';
 import { BsArrowRight } from 'react-icons/bs';
+import heroImg from '../assets/img/about.avif';
+import about1Img from '../assets/img/about1.avif';
+import everestImg from '../assets/img/everest.jpg';
+import annapurnaImg from '../assets/img/annapurna.jpg';
+import langtangImg from '../assets/img/langtang.webp';
 import '../assets/css/theme.css';
 
 export default function About() {
@@ -26,7 +31,7 @@ export default function About() {
     { year: '2010', title: 'Founded',           desc: "Dorje Sherpa's vision of authentic Himalayan adventures begins.",             img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80' },
     { year: '2015', title: "First Int'l Group", desc: 'Successfully guided our first international group to Everest Base Camp.',      img: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=400&q=80' },
     { year: '2018', title: 'Sustainability',    desc: 'Formalized our eco-friendly pledge and community reinvestment program.',       img: 'https://images.unsplash.com/photo-1573153098012-67bdee4c62f1?auto=format&fit=crop&w=400&q=80' },
-    { year: '2023', title: '1000th Trekker',    desc: 'Celebrated a milestone — 1,000 lives transformed by the mountains.',          img: 'src/assets/img/about1.avif' },
+    { year: '2023', title: '1000th Trekker',    desc: 'Celebrated a milestone — 1,000 lives transformed by the mountains.',          img: about1Img },
   ];
 
   const team = [
@@ -36,9 +41,9 @@ export default function About() {
   ];
 
   const gallery = [
-    { caption: 'Sunrise at Everest Base Camp', img: 'src/assets/img/everest.jpg' },
-    { caption: 'Annapurna Circuit',            img: 'src/assets/img/annapurna.jpg' },
-    { caption: 'Langtang Valley Culture',      img: 'src/assets/img/langtang.webp' },
+    { caption: 'Sunrise at Everest Base Camp', img: everestImg },
+    { caption: 'Annapurna Circuit',            img: annapurnaImg },
+    { caption: 'Langtang Valley Culture',      img: langtangImg },
   ];
 
   const values = [
@@ -53,7 +58,7 @@ export default function About() {
 
       {/* ── HERO ── */}
       <header className="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden"
-        style={{ backgroundImage: `url('src/assets/img/about.avif')`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
+        style={{ backgroundImage: `url(${heroImg})`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(180deg, rgba(15,23,42,0.38) 0%, rgba(0, 0, 0, 0.42) 55%, rgba(0, 0, 0, 0.61) 100%)' }} />
         {/* Blue glow */}
@@ -115,7 +120,7 @@ export default function About() {
 
           {/* Image */}
           <div ref={addRef} className="ts-reveal-right order-1 lg:order-2 relative">
-            <img src="src/assets/img/about1.avif" alt="Trekking in Himalayas"
+            <img src={about1Img} alt="Trekking in Himalayas"
               className="rounded-3xl shadow-2xl w-full object-cover"
               style={{ aspectRatio: '4/3' }} loading="lazy" />
             {/* Floating badge */}

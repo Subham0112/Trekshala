@@ -5,6 +5,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane, FaCheck } from 'r
 import { GiHiking } from 'react-icons/gi';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { HiOutlineClock } from 'react-icons/hi';
+import heroImg from '../assets/img/contact-hero.avif';
 import '../assets/css/theme.css';
 
 export default function Contact() {
@@ -96,7 +97,7 @@ export default function Contact() {
       <header className="relative flex items-center justify-center text-center text-white overflow-hidden"
         style={{
           minHeight: '62vh',
-          backgroundImage: `url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1740&q=80')`,
+          backgroundImage: `url(${heroImg})`,
           backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px'
         }}>
         <div className="absolute inset-0"
