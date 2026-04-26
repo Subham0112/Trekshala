@@ -22,21 +22,13 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-5 space-y-6">
             <div className="flex items-center gap-4">
-              <div className="relative">
-                <img
-                  src="/src/assets/img/logo.png"
-                  alt="TrekShala Logo"
-                  className="h-14 w-14 rounded-2xl object-cover shadow-xl ring-2 ring-white/20 bg-white p-1.5"
-                />
-                <div className="absolute -inset-1 bg-gradient-to-br from-green-400 to-emerald-500 rounded-3xl opacity-10 blur-xl" />
-              </div>
 
               <div>
                 <div style={{
                   fontSize: '22px',
                   fontWeight: 800,
                   letterSpacing: '-0.5px',
-                  background: 'linear-gradient(135deg, #3eecf8, #08dddd, #2ff5f5)',
+                  background: 'linear-gradient(135deg, #03747c, #016d56, #039b9b)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
