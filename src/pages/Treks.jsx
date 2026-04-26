@@ -95,7 +95,7 @@ export default function Treks() {
         }}
       >
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg,rgba(15,23,42,.45) 0%,rgba(15,23,42,.3) 45%,rgba(15,23,42,.85) 100%)' }} />
+          style={{ background: 'linear-gradient(180deg,rgba(0, 0, 0, 0.45) 0%,rgba(0, 0, 0, 0.3) 45%,rgba(0, 0, 0, 0.59) 100%)' }} />
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full pointer-events-none opacity-10"
           style={{ background: 'radial-gradient(circle,#60a5fa,transparent 70%)', filter: 'blur(72px)' }} />
 

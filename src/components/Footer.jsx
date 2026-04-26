@@ -14,7 +14,7 @@ import { GiMountainRoad } from 'react-icons/gi';
 export default function Footer() {
   return (
     <footer className=" text-white pt-16 pb-12"
-    style={{background: 'linear-gradient(135deg, #1659b1e3, #285ff5e8, #2feef5ce)'}}>
+    style={{background: 'linear-gradient(135deg, #1db3d8 0%, #2aa8b1 45%, #0f282a 100%)'}}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">

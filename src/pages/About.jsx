@@ -55,7 +55,7 @@ export default function About() {
       <header className="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden"
         style={{ backgroundImage: `url('src/assets/img/about.avif')`, backgroundSize: 'cover', backgroundPosition: 'center', paddingTop: '68px' }}>
         <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(15,23,42,0.38) 0%, rgba(30,58,138,0.55) 55%, rgba(15,23,42,0.92) 100%)' }} />
+          style={{ background: 'linear-gradient(180deg, rgba(15,23,42,0.38) 0%, rgba(0, 0, 0, 0.42) 55%, rgba(0, 0, 0, 0.61) 100%)' }} />
         {/* Blue glow */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full pointer-events-none opacity-18"
           style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)', filter: 'blur(56px)' }} />
@@ -270,7 +270,7 @@ export default function About() {
 
       {/* ── CTA ── */}
       <section className="relative py-20 overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 45%, #0f172a 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #1db3d8 0%, #2aa8b1 45%, #0f282a 100%)' }}>
         <div className="absolute top-0 right-0 w-80 h-80 pointer-events-none opacity-15"
           style={{ background: 'radial-gradient(circle, #60a5fa, transparent 70%)', transform: 'translate(25%,-25%)' }} />
         <div className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none opacity-10"
