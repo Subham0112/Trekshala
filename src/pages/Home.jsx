@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  FaStar, FaRoute, FaUsers, FaMedal, FaSnowflake, FaSun,
+  FaStar, FaRoute, FaUsers, FaSnowflake, FaSun,
   FaLeaf, FaCloudRain, FaQuoteLeft, FaChevronDown, FaChevronUp,
   FaMapMarkerAlt, FaClock, FaMountain, FaHiking,
   FaThermometerHalf, FaExclamationTriangle, FaCheckCircle, FaCamera,
@@ -9,7 +9,7 @@ import {
 import { GiMountainRoad, GiHiking, GiBackpack, GiCompass, GiSnowflake2 } from 'react-icons/gi';
 import { BsArrowRight, BsArrowUpRight, BsInfoCircle } from 'react-icons/bs';
 import { HiOutlineLightBulb } from 'react-icons/hi';
-import { MdTerrain, MdDirectionsWalk, MdNaturePeople } from 'react-icons/md';
+import { MdDirectionsWalk, MdNaturePeople } from 'react-icons/md';
 import '../assets/css/theme.css';
 
 function FAQItem({ q, a }) {
@@ -49,10 +49,35 @@ export default function Home() {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
 
+  // Trek cards — NO highlights, just image + name + quick stats + description + link
   const treks = [
-    { img: 'src/assets/img/everest.jpg', region: 'Khumbu Region', badge: 'Iconic', badgeCls: 'bg-amber-400 text-slate-900', title: 'Everest Base Camp', duration: '12–14 Days', altitude: '5,364m', difficulty: 'Challenging', diffCls: 'bg-orange-50 text-orange-700 border-orange-200', highlights: ['Namche Bazaar', 'Tengboche Monastery', 'Kalapathar viewpoint'], desc: "One of the world's most famous treks — Sherpa villages, high-altitude glaciers, and views of the world's highest peaks." },
-    { img: 'src/assets/img/annapurna.jpg', region: 'Annapurna Region', badge: 'Most Diverse', badgeCls: 'bg-sky-500 text-white', title: 'Annapurna Circuit', duration: '12–21 Days', altitude: '5,416m', difficulty: 'Moderate–Hard', diffCls: 'bg-sky-50 text-sky-700 border-sky-200', highlights: ['Thorong La Pass', 'Muktinath Temple', 'Poon Hill sunrise'], desc: 'A classic circumnavigation of the Annapurna massif through subtropical forests, arid Tibetan terrain, and spectacular mountain vistas.' },
-    { img: 'src/assets/img/langtang.webp', region: 'Langtang Region', badge: 'Hidden Gem', badgeCls: 'bg-cyan-500 text-white', title: 'Langtang Valley', duration: '7–10 Days', altitude: '4,984m', difficulty: 'Moderate', diffCls: 'bg-cyan-50 text-cyan-700 border-cyan-200', highlights: ['Kyanjin Gompa', 'Tserko Ri peak', 'Tamang villages'], desc: 'Less-travelled but equally breathtaking — glacial valleys, traditional Tamang culture, and stunning ridge-top views of the Langtang range.' },
+    {
+      img: 'src/assets/img/everest.jpg',
+      region: 'Khumbu Region',
+      badge: 'Iconic', badgeCls: 'bg-amber-400 text-slate-900',
+      title: 'Everest Base Camp',
+      duration: '12–14 Days', altitude: '5,364m',
+      difficulty: 'Challenging', diffCls: 'bg-orange-50 text-orange-700 border-orange-200',
+      desc: "One of the world's most famous treks — Sherpa villages, high-altitude glaciers, and views of the world's highest peaks.",
+    },
+    {
+      img: 'src/assets/img/annapurna.jpg',
+      region: 'Annapurna Region',
+      badge: 'Most Diverse', badgeCls: 'bg-sky-500 text-white',
+      title: 'Annapurna Circuit',
+      duration: '12–21 Days', altitude: '5,416m',
+      difficulty: 'Moderate–Hard', diffCls: 'bg-sky-50 text-sky-700 border-sky-200',
+      desc: 'A classic circumnavigation of the Annapurna massif through subtropical forests, arid Tibetan terrain, and spectacular vistas.',
+    },
+    {
+      img: 'src/assets/img/langtang.webp',
+      region: 'Langtang Region',
+      badge: 'Hidden Gem', badgeCls: 'bg-cyan-500 text-white',
+      title: 'Langtang Valley',
+      duration: '7–10 Days', altitude: '4,984m',
+      difficulty: 'Moderate', diffCls: 'bg-cyan-50 text-cyan-700 border-cyan-200',
+      desc: 'Less-travelled but equally breathtaking — glacial valleys, traditional Tamang culture, and stunning ridge-top views.',
+    },
   ];
 
   const seasons = [
@@ -89,65 +114,41 @@ export default function Home() {
 
   const whyNepal = [
     { icon: <FaMountain size={20} />, stat: '8 of 14', label: "World's Highest Peaks", desc: "Nepal hosts 8 of the 14 eight-thousanders — including Everest, Kangchenjunga, and Annapurna." },
-    { icon: <MdTerrain size={20} />, stat: '1,000+ km', label: 'Diverse Trails', desc: 'From jungle lowlands to arctic highlands — an unparalleled diversity of terrain in one compact country.' },
+    { icon: <GiMountainRoad size={20} />, stat: '1,000+ km', label: 'Diverse Trails', desc: 'From jungle lowlands to arctic highlands — an unparalleled diversity of terrain in one compact country.' },
     { icon: <GiBackpack size={20} />, stat: '100+', label: 'Ethnic Communities', desc: 'Meet Sherpas, Tamangs, Gurungs and dozens more — each with unique traditions and living heritage.' },
     { icon: <FaCheckCircle size={20} />, stat: '75+ Years', label: 'Open to Trekkers', desc: "Nepal has welcomed adventurers since 1949, building one of the world's most trusted trekking networks." },
   ];
 
   return (
     <div className="ts-page overflow-x-hidden">
+
+      {/* ══ HERO ══ */}
       <header
         className="relative flex flex-col items-center justify-center text-white overflow-hidden"
-        style={{
-          minHeight: '100vh',
-          backgroundImage: `url('src/assets/img/home.avif')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center 30%',
-          paddingTop: '68px',
-        }}
+        style={{ minHeight: '100vh', backgroundImage: `url('src/assets/img/home.avif')`, backgroundSize: 'cover', backgroundPosition: 'center 30%', paddingTop: '68px' }}
       >
-        {/* Cinematic gradient — image visible top, dark bottom for text legibility */}
-        <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, rgba(12,26,58,0.20) 0%, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.72) 72%, rgba(0, 0, 0, 0.96) 100%)' }} />
-        {/* Subtle cyan bloom low-centre */}
-        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[600px] h-48 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, rgba(56,189,248,0.10), transparent 65%)', filter: 'blur(55px)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,rgba(0, 0, 0, 0.2) 0%,rgba(0, 0, 0, 0.1) 30%,rgba(0, 0, 0, 0.49) 72%,rgba(0, 0, 0, 0.82) 100%)' }} />
+        <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[600px] h-48 pointer-events-none" style={{ background: 'radial-gradient(ellipse,rgba(56,189,248,0.10),transparent 65%)', filter: 'blur(55px)' }} />
         <div className="ts-noise absolute inset-0 pointer-events-none" />
 
-        {/* ─── Main content ─── */}
         <div className="relative z-10 flex-1 flex items-center justify-center w-full px-6">
           <div className="w-full max-w-2xl mx-auto text-center">
-
-            {/* Eyebrow — small pill, naturally above headline */}
             <div className="ts-anim-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6"
-              style={{ background: 'rgba(12, 171, 245, 0.29)', border: '1px solid rgba(105, 202, 243, 0.28)', backdropFilter: 'blur(10px)' }}>
+              style={{ background: 'rgba(14,165,233,0.20)', border: '1px solid rgba(147,219,250,0.28)', backdropFilter: 'blur(10px)' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-300 animate-pulse flex-shrink-0" />
               <span className="ts-hero-eyebrow">Your Complete Nepal Trekking Guide</span>
             </div>
 
-            {/* Headline — clamped so it stays 2 lines at most */}
-            <h1
-              className="ts-display ts-hero-text ts-anim-2"
-              style={{
-                fontSize: 'clamp(2rem, 4.2vw, 3.6rem)',
-                fontWeight: 700,
-                lineHeight: 1.14,
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Discover Nepal's Greatest<br />
-              <em>Himalayan Trails</em>
+            <h1 className="ts-display ts-hero-text ts-anim-2"
+              style={{ fontSize: 'clamp(2rem, 4.2vw, 3.6rem)', fontWeight: 700, lineHeight: 1.14, letterSpacing: '-0.02em' }}>
+              Discover Nepal's Greatest<br /><em>Himalayan Trails</em>
             </h1>
 
-            {/* Sub-text */}
-            <p
-              className="ts-anim-3 mt-5 text-slate-300/82 leading-relaxed mx-auto"
-              style={{ fontSize: 'clamp(0.85rem, 1.5vw, 0.98rem)', maxWidth: '460px' }}
-            >
+            <p className="ts-anim-3 mt-5 text-slate-300/82 leading-relaxed mx-auto"
+              style={{ fontSize: 'clamp(0.85rem, 1.5vw, 0.98rem)', maxWidth: '460px' }}>
               Trails, seasons, difficulty ratings, permits, and cultural tips — everything you need to plan an unforgettable trek in Nepal.
             </p>
 
-            {/* CTAs */}
             <div className="ts-anim-4 flex flex-wrap gap-3 justify-center mt-7">
               <a href="#treks" className="ts-btn-p inline-flex items-center gap-2 text-white font-semibold px-7 py-3 rounded-full text-sm shadow-xl">
                 <GiCompass size={15} /> Explore Trails
@@ -157,7 +158,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Stats — compact single row under CTAs */}
             <div className="ts-anim-4 mt-8 flex flex-wrap justify-center gap-2.5">
               {[
                 { icon: <FaMountain size={11} />, value: '8,849m', label: 'Mt. Everest' },
@@ -177,12 +177,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Section nav chips — pinned to very bottom */}
         <div className="relative z-10 w-full pb-7 px-6 ts-anim-4">
           <div className="flex flex-wrap justify-center gap-2">
-            {['Trail Guides', 'Best Seasons', 'Difficulty Levels', 'Trekking Tips', 'Permits & Rules', 'FAQ'].map(chip => (
-              <span key={chip}
-                className="text-[10px] px-3 py-1 rounded-full text-sky-200 font-medium cursor-default"
+            {['Trail Guides','Best Seasons','Difficulty Levels','Trekking Tips','Permits & Rules','FAQ'].map(chip => (
+              <span key={chip} className="text-[10px] px-3 py-1 rounded-full text-sky-200 font-medium"
                 style={{ background: 'rgba(14,165,233,0.12)', border: '1px solid rgba(56,189,248,0.16)' }}>
                 {chip}
               </span>
@@ -197,7 +195,7 @@ export default function Home() {
           <div ref={addRef} className="ts-reveal text-center max-w-2xl mx-auto mb-14">
             <p className="ts-eyebrow mb-3">Why Nepal?</p>
             <div className="ts-divider mx-auto mb-5" />
-            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700, lineHeight: 1.2 }}>
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700, lineHeight: 1.2 }}>
               The World's Greatest <em className="ts-accent-text">Trekking Destination</em>
             </h2>
             <p className="text-slate-500 mt-3 text-sm leading-relaxed">No country on earth compresses so much altitude, culture, and natural drama into such a small area.</p>
@@ -215,25 +213,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ TRAIL PROFILES ══ */}
+      {/* ══ TRAIL PROFILES — NO HIGHLIGHTS ══ */}
       <section id="treks" className="py-20" style={{ background: 'linear-gradient(180deg,#f0f9ff 0%,#e0f2fe 55%,#f0f9ff 100%)' }}>
         <div className="max-w-6xl mx-auto px-6">
           <div ref={addRef} className="ts-reveal flex flex-wrap items-end justify-between gap-4 mb-12">
             <div>
               <p className="ts-eyebrow mb-2">Trail Guides</p>
               <div className="ts-divider mb-4" />
-              <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+              <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700 }}>
                 Iconic <em>Trek Profiles</em>
               </h2>
               <p className="text-slate-500 mt-1.5 text-sm">In-depth guides to Nepal's most celebrated routes.</p>
             </div>
-            <a href="/treks" className="inline-flex items-center gap-2 text-sky-600 font-semibold text-sm hover:gap-4 transition-all duration-300">All trek profiles <BsArrowRight /></a>
+            <a href="/treks" className="inline-flex items-center gap-2 text-sky-600 font-semibold text-sm hover:gap-4 transition-all duration-300">
+              All trek profiles <BsArrowRight />
+            </a>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {treks.map((t, i) => (
-              <div key={t.title} ref={addRef} className="ts-reveal ts-card bg-white rounded-2xl overflow-hidden flex flex-col" style={{ transitionDelay: `${i * 90}ms` }}>
-                <div className="relative overflow-hidden" style={{ height: '215px' }}>
+              <div key={t.title} ref={addRef}
+                className="ts-reveal ts-card bg-white rounded-2xl overflow-hidden flex flex-col"
+                style={{ transitionDelay: `${i * 90}ms` }}>
+
+                {/* Image */}
+                <div className="relative overflow-hidden" style={{ height: '220px' }}>
                   <img src={t.img} alt={t.title} className="ts-card-img w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg,transparent 30%,rgba(12,26,58,0.65) 100%)' }} />
                   <span className={`absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full ${t.badgeCls}`}>{t.badge}</span>
@@ -242,23 +246,24 @@ export default function Home() {
                     <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${t.diffCls}`}>{t.difficulty}</span>
                   </div>
                 </div>
+
+                {/* Card body — clean, no highlights */}
                 <div className="p-5 flex flex-col flex-1">
-                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1"><FaMapMarkerAlt size={8} className="inline mr-1" />{t.region}</p>
-                  <h3 className="ts-display font-bold text-slate-900 text-[1.15rem] leading-snug mb-2">{t.title}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-4">{t.desc}</p>
-                  <div className="flex items-center gap-4 text-xs text-slate-500 py-3 border-y border-sky-50 mb-4">
+                  <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                    <FaMapMarkerAlt size={8} className="inline mr-1" />{t.region}
+                  </p>
+                  <h3 className="ts-display font-bold text-slate-900 text-[1.2rem] leading-snug mb-2">{t.title}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-1">{t.desc}</p>
+
+                  {/* Quick info row */}
+                  <div className="flex items-center gap-4 text-xs text-slate-500 py-3 border-t border-sky-50 mb-4">
                     <span className="flex items-center gap-1.5"><FaClock size={9} className="text-sky-500" />{t.duration}</span>
                     <span className="flex items-center gap-1.5"><FaMountain size={9} className="text-sky-500" />{t.altitude}</span>
                   </div>
-                  <div className="mb-5 flex-1">
-                    <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-2">Highlights</p>
-                    {t.highlights.map(h => (
-                      <p key={h} className="flex items-center gap-2 text-sm text-slate-600 mb-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-sky-400 flex-shrink-0" />{h}
-                      </p>
-                    ))}
-                  </div>
-                  <a href="/packages" className="inline-flex items-center gap-2 text-sky-600 font-semibold text-sm hover:gap-4 transition-all duration-300 mt-auto">Read full guide <BsArrowRight size={13} /></a>
+
+                  <a href="/treks" className="inline-flex items-center gap-2 text-sky-600 font-semibold text-sm hover:gap-4 transition-all duration-300 mt-auto">
+                    Read full guide <BsArrowRight size={13} />
+                  </a>
                 </div>
               </div>
             ))}
@@ -272,7 +277,7 @@ export default function Home() {
           <div ref={addRef} className="ts-reveal text-center max-w-2xl mx-auto mb-14">
             <p className="ts-eyebrow mb-3">When to Go</p>
             <div className="ts-divider mx-auto mb-5" />
-            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700 }}>
               Trekking by <em className="ts-accent-text">Season</em>
             </h2>
             <p className="text-slate-500 mt-3 text-sm leading-relaxed">Nepal's trekking calendar is shaped by the monsoon — understanding the seasons is the single most important planning decision you'll make.</p>
@@ -310,7 +315,7 @@ export default function Home() {
           <div ref={addRef} className="ts-reveal text-center max-w-2xl mx-auto mb-14">
             <p className="ts-eyebrow mb-3">Difficulty Levels</p>
             <div className="ts-divider mx-auto mb-5" />
-            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700 }}>
               Which Trek <em className="ts-accent-text">Suits You?</em>
             </h2>
             <p className="text-slate-500 mt-3 text-sm leading-relaxed">Nepal's trails range from gentle valley walks to multi-pass expeditions. Here's how to assess your level honestly.</p>
@@ -344,7 +349,7 @@ export default function Home() {
           <div ref={addRef} className="ts-reveal text-center max-w-2xl mx-auto mb-14">
             <p className="ts-eyebrow mb-3">Insider Knowledge</p>
             <div className="ts-divider mx-auto mb-5" />
-            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700 }}>
               Essential <em className="ts-accent-text">Trekking Tips</em>
             </h2>
           </div>
@@ -359,7 +364,8 @@ export default function Home() {
               </div>
             ))}
           </div>
-          <div ref={addRef} className="ts-reveal mt-7 p-5 rounded-2xl flex items-start gap-4" style={{ background: 'linear-gradient(135deg,#f0f9ff,#e0f2fe)', border: '1px solid #bae6fd' }}>
+          <div ref={addRef} className="ts-reveal mt-7 p-5 rounded-2xl flex items-start gap-4"
+            style={{ background: 'linear-gradient(135deg,#f0f9ff,#e0f2fe)', border: '1px solid #bae6fd' }}>
             <BsInfoCircle size={18} className="text-sky-500 flex-shrink-0 mt-0.5" />
             <p className="text-slate-600 text-sm leading-relaxed">
               <strong className="text-sky-700">Altitude Sickness Warning:</strong> AMS can affect anyone regardless of fitness. Never ignore severe headache, vomiting, or confusion at altitude — descend immediately. Carry a pulse oximeter on higher treks (normal SpO₂ at altitude: 85–95%).
@@ -375,12 +381,12 @@ export default function Home() {
         <div className="absolute left-6 top-4 text-white/4 ts-display pointer-events-none select-none" style={{ fontSize: '12rem', lineHeight: 0.8, fontWeight: 700 }}>"</div>
         <div ref={addRef} className="ts-reveal relative z-10 max-w-2xl mx-auto px-8 text-center">
           <FaQuoteLeft className="text-cyan-700 text-2xl mb-5 mx-auto" />
-          <blockquote className="ts-display text-white italic leading-relaxed" style={{ fontSize: 'clamp(1.2rem, 2.2vw, 1.9rem)', fontWeight: 500 }}>
+          <blockquote className="ts-display text-white italic leading-relaxed" style={{ fontSize: 'clamp(1.2rem,2.2vw,1.9rem)', fontWeight: 500 }}>
             "It is not the mountain we conquer, but ourselves."
           </blockquote>
           <p className="text-sky-300 font-semibold text-xs mt-4 tracking-widest uppercase">— Sir Edmund Hillary</p>
           <div className="mt-10 grid grid-cols-3 gap-6">
-            {[["70%","Nepal's terrain\nabove 3,000m"],["10","UNESCO World\nHeritage Sites"],["340+","Bird species\nalong the trails"]].map(([val, lbl]) => (
+            {[["70%","Nepal's terrain\nabove 3,000m"],["10","UNESCO World\nHeritage Sites"],["340+","Bird species\nalong the trails"]].map(([val,lbl]) => (
               <div key={val} className="text-center">
                 <p className="ts-display text-sky-300 font-bold" style={{ fontSize: '1.5rem' }}>{val}</p>
                 <p className="text-sky-100/50 text-xs mt-1 leading-snug whitespace-pre-line">{lbl}</p>
@@ -396,7 +402,7 @@ export default function Home() {
           <div ref={addRef} className="ts-reveal text-center mb-14">
             <p className="ts-eyebrow mb-3">Common Questions</p>
             <div className="ts-divider mx-auto mb-5" />
-            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem, 3vw, 2.6rem)', fontWeight: 700 }}>
+            <h2 className="ts-display text-slate-900" style={{ fontSize: 'clamp(1.8rem,3vw,2.6rem)', fontWeight: 700 }}>
               Frequently Asked <em className="ts-accent-text">Questions</em>
             </h2>
             <p className="text-slate-500 mt-3 text-sm leading-relaxed">Real answers to the questions every first-time Nepal trekker asks.</p>
@@ -410,16 +416,16 @@ export default function Home() {
       {/* ══ CTA ══ */}
       <section className="relative py-24 overflow-hidden" style={{ background: 'linear-gradient(135deg,#0ea5e9 0%,#0284c7 40%,#0c4a6e 100%)' }}>
         <div className="ts-noise absolute inset-0 pointer-events-none" />
-        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at 80% 50%, rgba(255,255,255,0.07) 0%, transparent 55%), radial-gradient(ellipse at 20% 50%, rgba(6,182,212,0.13) 0%, transparent 55%)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at 80% 50%,rgba(255,255,255,0.07) 0%,transparent 55%),radial-gradient(ellipse at 20% 50%,rgba(6,182,212,0.13) 0%,transparent 55%)' }} />
         <div className="absolute right-10 top-1/2 -translate-y-1/2 text-white/4 pointer-events-none select-none hidden lg:block ts-display" style={{ fontSize: '13rem', fontWeight: 700, lineHeight: 1 }}>✦</div>
         <div ref={addRef} className="ts-reveal relative z-10 max-w-2xl mx-auto text-center px-6">
           <p className="ts-eyebrow text-sky-100 mb-4">Plan Your Trek</p>
-          <h2 className="ts-display text-white leading-tight mb-4" style={{ fontSize: 'clamp(1.9rem, 4vw, 3rem)', fontWeight: 700 }}>
+          <h2 className="ts-display text-white leading-tight mb-4" style={{ fontSize: 'clamp(1.9rem,4vw,3rem)', fontWeight: 700 }}>
             Ready to start your<br /><em>Himalayan journey?</em>
           </h2>
           <p className="text-sky-100/75 text-sm leading-loose mb-9 max-w-md mx-auto">Browse detailed trek profiles, get personalised route recommendations, or reach out to our local experts for advice tailored to your experience level.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href="/packages" className="inline-flex items-center gap-2 bg-white text-sky-800 font-bold px-8 py-3.5 rounded-full text-sm shadow-2xl hover:bg-sky-50 transition-all hover:scale-105 duration-300">
+            <a href="/treks" className="inline-flex items-center gap-2 bg-white text-sky-800 font-bold px-8 py-3.5 rounded-full text-sm shadow-2xl hover:bg-sky-50 transition-all hover:scale-105 duration-300">
               <GiHiking size={17} /> View Trek Guides
             </a>
             <a href="/contact" className="ts-btn-ghost inline-flex items-center gap-2 text-white font-medium px-8 py-3.5 rounded-full text-sm">
