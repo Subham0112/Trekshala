@@ -197,7 +197,7 @@ export default function About() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg,rgba(0, 0, 0, 0.22) 0%,rgba(0, 0, 0, 0.14) 40%,rgba(0, 0, 0, 0.53) 80%,rgba(7, 7, 7, 0.77) 100%)",
+              "linear-gradient(180deg,rgba(0, 0, 0, 0.29) 0%,rgba(0, 0, 0, 0.26) 40%,rgba(0, 0, 0, 0.53) 80%,rgba(7, 7, 7, 0.77) 100%)",
           }}
         />
         <div
@@ -417,7 +417,7 @@ export default function About() {
               What <em className="ts-accent-text">TrekShala</em> Covers
             </h2>
             <p className="text-slate-500 mt-3 text-sm leading-relaxed">
-              We aim to be the only resource you need — from your first Google
+              We aim to be the only resource you need from your first Google
               search to the moment you step back onto the plane home.
             </p>
           </div>
@@ -529,7 +529,7 @@ export default function About() {
               Nepal through <em className="ts-accent-text">Our Lens</em>
             </h2>
             <p className="mt-2 text-slate-500 text-sm max-w-lg mx-auto">
-              Every image in our guide is taken on the actual trail — by people
+              Every image in our guide is taken on the actual trail by people
               who walked the same paths you're about to explore.
             </p>
           </div>
@@ -653,7 +653,7 @@ export default function About() {
             className="ts-display text-white italic leading-relaxed"
             style={{ fontSize: "clamp(1.2rem,2.2vw,1.9rem)", fontWeight: 500 }}
           >
-            "The Himalayas are not just mountains. They are a school — and the
+            "The Himalayas are not just mountains. They are a school and the
             curriculum is humility."
           </blockquote>
           <p className="text-sky-300 font-semibold text-xs mt-5 tracking-widest uppercase">
@@ -716,7 +716,7 @@ export default function About() {
             </p>
             <p className="text-slate-600 text-base leading-loose mb-7">
               Every guide we publish includes a section on sustainable practices
-              — from properly disposing of waste to hiring local porters at fair
+               from properly disposing of waste to hiring local porters at fair
               wages and choosing eco-conscious teahouses.
             </p>
 
@@ -793,7 +793,7 @@ export default function About() {
           </h2>
           <p className="text-sky-100/75 text-sm leading-loose mb-9 max-w-md mx-auto">
             Browse our full library of trek profiles, seasonal guides, safety
-            advice, and permit information — everything you need in one place.
+            advice, and permit information; everything you need in one place.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
