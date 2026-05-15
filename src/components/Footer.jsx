@@ -93,7 +93,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-sm ">Email</p>
-                  <p>info@nepaltreks.com</p>
+                  <p>info@trekshala.com</p>
                 </div>
               </a>
 
